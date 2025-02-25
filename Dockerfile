@@ -15,7 +15,7 @@ ENV RAILS_ENV="production" \
 FROM base AS build
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev git pkg-config && \
+    apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev git pkg-config nodejs npm && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 COPY Gemfile Gemfile.lock ./
@@ -31,6 +31,11 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
 FROM base
+
+# Node.jsとnpmをインストール
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y nodejs npm && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
