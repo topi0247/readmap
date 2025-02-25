@@ -1,0 +1,7 @@
+{
+  "name": "myapp",
+  "private": true,
+  "dependencies": {
+    "daisyui": "^4.12.23"
+  }
+}
