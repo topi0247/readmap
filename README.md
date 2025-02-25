@@ -6,6 +6,8 @@
 
 TODO : ここに環境構築方法を書く
 
+# ER図
+[![Image from Gyazo](https://i.gyazo.com/265a41026621ec93eace46d9a1921f31.png)](https://gyazo.com/265a41026621ec93eace46d9a1921f31)
 
 # 週一チーム開発ルール
 
