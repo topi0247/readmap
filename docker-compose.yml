@@ -4,10 +4,6 @@ services:
     environment:
       TZ: Asia/Tokyo
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: app_development
-      MYSQL_USER: app_user
-      MYSQL_PASSWORD: app_password
-      MYSQL_TEST_DATABASE: app_test
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
@@ -33,7 +29,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     tty: true
     stdin_open: true
     volumes:
@@ -44,7 +40,7 @@ services:
       TZ: Asia/Tokyo
       RAILS_ENV: development
       DISABLE_SPRING: 1
-    command: bash -c "cd /myapp && bundle install && bundle exec rails db:migrate && rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+    command: bash -c "bundle install && bundle exec rails db:prepare && rm -f tmp/pids/server.pid && ./bin/dev"
     ports:
       - "3000:3000"
     depends_on:
