@@ -2,6 +2,6 @@
   "name": "myapp",
   "private": true,
   "dependencies": {
-    "daisyui": "^4.12.23"
+    "daisyui": "^5.0.0"
   }
 }
