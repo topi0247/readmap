@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new", as: "login"
 
   resources :users, only: %i[show edit]
+  resources :lists, only: %i[index show], shallow: true do
+    resources :books, only: %i[new show edit]
+  end
 end
