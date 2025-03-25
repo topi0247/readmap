@@ -3,10 +3,11 @@ Rails.application.routes.draw do
 
   root to: "static_pages#index"
 
-  get "/login", to: "sessions#new", as: "login"
+  get "/login", to: "sessions#new", as: :login
+  delete "/logout", to: "sessions#destroy", as: :logout
 
-  resources :users, only: %i[show edit]
-  resources :lists, only: %i[index show] do
-    resources :books, only: %i[new show edit]
+  resources :users, only: %i[show edit update]
+  resources :lists do
+    resources :books, only: %i[new create show edit update destroy]
   end
 end
