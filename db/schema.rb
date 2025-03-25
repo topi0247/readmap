@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_25_123258) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_25_131136) do
   create_table "authentications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "email"
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_25_123258) do
 
   create_table "books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
-    t.text "uri"
+    t.text "url"
     t.string "isbn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
