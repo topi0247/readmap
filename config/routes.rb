@@ -8,6 +8,6 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show edit update]
   resources :lists do
-    resources :books, only: %i[new create show edit update destroy]
+    resources :books, except: %i[index]
   end
 end
