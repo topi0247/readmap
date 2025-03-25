@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   root to: "static_pages#index"
 
   get "/login", to: "sessions#new", as: "login"
+
+  resources :users, only: %i[show edit]
 end
