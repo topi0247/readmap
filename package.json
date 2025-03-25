@@ -2,7 +2,7 @@
   "name": "myapp",
   "private": true,
   "dependencies": {
-    "daisyui": "^5.0.4"
+    "daisyui": "^5.0.9"
   },
   "version": "1.0.0",
   "description": "来読 〜ReadMap〜",
