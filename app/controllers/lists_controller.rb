@@ -9,7 +9,7 @@ class ListsController < ApplicationController
   end
 
   def show
-    @books = Book.all
+    @books = Book.order(created_at: :asc)
     @user = User.find_by(id: 1)
   end
 
