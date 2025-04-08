@@ -40,3 +40,5 @@
 # Ignore macOS system files
 .DS_Store
 /node_modules
+
+/config/credentials/development.key
