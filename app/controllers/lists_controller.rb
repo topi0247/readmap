@@ -9,6 +9,8 @@ class ListsController < ApplicationController
   end
 
   def show
+    @books = Book.all
+    @user = User.find_by(id: 1)
   end
 
   def update
