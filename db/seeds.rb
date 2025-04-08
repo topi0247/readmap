@@ -124,7 +124,7 @@ list_books = [
   {
     list: created_lists[0],
     book: created_books[1],
-    read_completed_at: nil,
+    read_completed_at: Date.new(2024, 5, 20),
     comment: "You must read"
   },
   {
@@ -136,7 +136,7 @@ list_books = [
   {
     list: created_lists[2],
     book: created_books[2],
-    read_completed_at: nil,
+    read_completed_at: Date.new(2024, 8, 3),
     comment: "基本知識得られた"
   },
   {
