@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_08_132412) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_08_132549) do
   create_table "authentications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "email", null: false
@@ -48,11 +48,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_08_132412) do
   create_table "list_books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "list_id", null: false
     t.bigint "book_id", null: false
-    t.date "read_completed_at"
+    t.date "read_completed_at", null: false
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_list_books_on_book_id"
+    t.index ["list_id", "book_id"], name: "index_list_books_on_list_id_and_book_id", unique: true
     t.index ["list_id"], name: "index_list_books_on_list_id"
   end
 
