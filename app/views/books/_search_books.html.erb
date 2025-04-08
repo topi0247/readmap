@@ -1,0 +1,85 @@
+<section>
+  <h1>書籍検索</h1>
+
+  <input type="text" placeholder="書籍タイトル" />
+
+  <p id="result" class="hidden"></p>
+
+  <table id="book-table" class="hidden">
+    <thead>
+      <tr>
+        <th>タイトル</th>
+        <th>表紙</th>
+      </tr>
+    </thead>
+    <tbody id="book-list">
+    </tbody>
+  </table>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const input = document.querySelector("input[type='text']");
+    const result = document.getElementById("result");
+    input.addEventListener("input", function() {
+      const query = input.value;
+      fetch(`api/v1/search_books?title=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            result.classList.remove("hidden");
+          if (!data) {
+            result.classList.add("text-red-500");
+            result.textContent = "エラーが発生しました。";
+            displayReset()
+            return;
+          } else {
+            if (data.hits === 0 || data.hits === undefined) {
+              result.classList.add("text-red-500");
+              result.textContent = "書籍が見つかりませんでした。";
+              displayReset()
+            } else {
+              result.classList.remove("text-red-500");
+              result.textContent = `${data.hits}件の書籍が見つかりました。`;
+
+              const books = data.books;
+              displayBooks(books);
+            }
+          }
+        });
+    });
+
+    function displayReset() {
+      const bookTable = document.getElementById("book-table");
+      bookTable.classList.add("hidden");
+      const bookList = document.getElementById("book-list");
+      bookList.classList.add("hidden");
+      bookList.innerHTML = "";
+    }
+
+    function displayBooks(books) {
+      const bookTable = document.getElementById("book-table");
+      bookTable.classList.remove("hidden");
+      const bookList = document.getElementById("book-list");
+      bookList.classList.remove("hidden");
+      bookList.innerHTML = "";
+
+      books.forEach(function(book){
+        const row = document.createElement("tr");
+        const titleCell = document.createElement("td");
+        titleCell.textContent = book.title;
+
+        const imageUrlCell = document.createElement("td");
+        const image = document.createElement("img");
+        image.src = book.image_url;
+        image.alt = book.title;
+        image.width = 200;
+        image.height = 200;
+        imageUrlCell.appendChild(image);
+
+        row.appendChild(titleCell);
+        row.appendChild(imageUrlCell);
+        bookList.appendChild(row);
+      });
+    }
+  });
+</script>
