@@ -89,6 +89,7 @@ created_books = books_data.map do |book_data|
   Book.find_or_create_by!(isbn: book_data[:isbn]) do |book|
     book.title = book_data[:title]
     book.url = book_data[:url]
+    book.cover_image_url = book_data[:cover_image_url]
   end
 end
 
