@@ -1,1 +1,23 @@
-<h1 class="font-bold text-4xl">リスト詳細ページ</h1>
+<h1 class="font-bold text-4xl text-center mb-4">書籍一覧</h1>
+  <div class="flex justify-center">
+    <%= link_to 'TOPへ戻る', root_path, class: 'btn btn-primary' %>
+    <%= link_to '書籍登録画面', "#", class: 'btn btn-primary' %>
+  </div>
+  <div class="flex justify-center">
+  <ul class="w-full max-w-2xl">
+    <% @books.each do |book| %>
+      <li class="mb-4 p-4 border rounded shadow mt-4">
+        <%= image_tag(book.cover_image_url) %>
+        <strong class="block text-lg font-semibold mb-2">タイトル:</strong>
+        <span class="block mb-2"><%= book.title %></span>
+        <strong class="block text-lg font-semibold mb-2">ユーザー名:</strong>
+        <span class="block mb-2"><%= @user.name %></span>
+        <strong class="block text-lg font-semibold mb-2">読了日時:</strong>
+        <span class="block">仮読了日時</span>
+      </li>
+    <% end %>
+  </ul>
+</div>
+  <div class="mt-auto flex justify-center w-full">
+    <%= link_to 'Xシェア', "#", class: 'btn btn-primary' %>
+  </div>
