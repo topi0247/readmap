@@ -63,25 +63,25 @@ books_data = [
     title: "「エンジニア×スタートアップ」こそ、最高のキャリアである",
     url: "https://books.rakuten.co.jp/rb/17314436/?l-id=search-c-item-text-05",
     isbn: "9784295407775",
-    cover_image_url: "https://books.rakuten.co.jp/rb/17314436/?rafcid=wsc_b_bs_8a2a6cdb7ded801eeedc109f86ede416"
+    cover_image_url: "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/7775/9784295407775_1_3.jpg?_ex=200x200"
   },
   {
     title: "マンガでわかるデータベース",
     url: "https://books.rakuten.co.jp/rb/3712479/?l-id=search-c-item-text-01",
     isbn: "9784274066313",
-    cover_image_url: "https://books.rakuten.co.jp/rb/3712479/?rafcid=wsc_b_bs_8a2a6cdb7ded801eeedc109f86ede416"
+    cover_image_url: "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/2740/27406631.jpg?_ex=200x200"
   },
   {
     title: "イラスト図解式 この一冊で全部わかるWeb技術の基本",
     url: "https://books.rakuten.co.jp/rb/14674807/?l-id=item-c-reco-slider&rtg=103322d9a83bee379262ea7a59a2dc51",
     isbn: "9784797388817",
-    cover_image_url: "https://books.rakuten.co.jp/rb/14674807/?rafcid=wsc_b_bs_8a2a6cdb7ded801eeedc109f86ede416"
+    cover_image_url: "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/8817/9784797388817.jpg?_ex=200x200"
   },
   {
     title: "ゼロからわかるRuby超入門はじめてのプログラミング（かんたんIT基礎講座）",
     url: "https://books.rakuten.co.jp/rb/15664673/?l-id=item-c-reco-slider&rtg=103322d9a83bee379262ea7a59a2dc51",
     isbn: "9784297101237",
-    cover_image_url: "https://books.rakuten.co.jp/rb/15664673/?rafcid=wsc_b_bs_8a2a6cdb7ded801eeedc109f86ede416"
+    cover_image_url: "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1237/9784297101237.jpg?_ex=200x200"
   }
 ]
 
