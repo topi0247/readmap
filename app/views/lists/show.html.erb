@@ -6,14 +6,15 @@
   <div class="flex justify-center">
   <ul class="w-full max-w-2xl">
     <% @books.each do |book| %>
-    <li class="mb-4 p-4 border rounded shadow mt-4">
-      <strong class="block text-lg font-semibold mb-2">タイトル:</strong> 
-      <span class="block mb-2"><%= book.title %></span>
-      <strong class="block text-lg font-semibold mb-2">ユーザー名:</strong> 
-      <span class="block mb-2"><%= @user.name %></span>
-      <strong class="block text-lg font-semibold mb-2">読了日時:</strong> 
-      <span class="block">仮読了日時</span>
-    </li>
+      <li class="mb-4 p-4 border rounded shadow mt-4">
+        <%= image_tag(book.cover_image_url) %>
+        <strong class="block text-lg font-semibold mb-2">タイトル:</strong>
+        <span class="block mb-2"><%= book.title %></span>
+        <strong class="block text-lg font-semibold mb-2">ユーザー名:</strong>
+        <span class="block mb-2"><%= @user.name %></span>
+        <strong class="block text-lg font-semibold mb-2">読了日時:</strong>
+        <span class="block">仮読了日時</span>
+      </li>
     <% end %>
   </ul>
 </div>
