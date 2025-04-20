@@ -1,6 +1,6 @@
 class Api::V1::BooksController < ApplicationController
   def search
-    data = ::RakutenBooksApiService.search(books_params[:title])
+    data = RakutenBooksApiService.search(books_params[:title])
     if data
       render json: data, status: :ok
     else

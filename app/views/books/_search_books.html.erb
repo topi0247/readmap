@@ -1,7 +1,8 @@
 <section>
   <h1>書籍検索</h1>
 
-  <input type="text" placeholder="書籍タイトル" />
+  <input type="text" id="input-title" placeholder="書籍タイトル" />
+  <button type="button" id="search-button">検索</button>
 
   <p id="result" class="hidden"></p>
 
@@ -19,33 +20,42 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const input = document.querySelector("input[type='text']");
-    const result = document.getElementById("result");
-    input.addEventListener("input", function() {
+    const searchButton = document.getElementById("search-button");
+    searchButton.addEventListener("click", async() => {
+      const input = document.getElementById("input-title");
+      const result = document.getElementById("result");
       const query = input.value;
-      fetch(`api/v1/search_books?title=${query}`)
-        .then(response => response.json())
-        .then(data => {
-            result.classList.remove("hidden");
-          if (!data) {
-            result.classList.add("text-red-500");
-            result.textContent = "エラーが発生しました。";
-            displayReset()
-            return;
-          } else {
-            if (data.hits === 0 || data.hits === undefined) {
-              result.classList.add("text-red-500");
-              result.textContent = "書籍が見つかりませんでした。";
-              displayReset()
-            } else {
-              result.classList.remove("text-red-500");
-              result.textContent = `${data.hits}件の書籍が見つかりました。`;
 
-              const books = data.books;
-              displayBooks(books);
-            }
-          }
-        });
+      if (query === "") {
+        result.classList.remove("hidden");
+        result.classList.add("text-red-500");
+        result.textContent = "書籍タイトルを入力してください。";
+        displayReset();
+        return;
+      }
+
+      try {
+        const response = await fetch(`api/v1/search_books?title=${query}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        if (data.books.length === 0) {
+          result.classList.remove("hidden");
+          result.classList.add("text-red-500");
+          result.textContent = "書籍が見つかりませんでした。";
+          displayReset();
+        } else {
+          result.classList.remove("hidden");
+          result.classList.add("text-green-500");
+          result.textContent = `${data.hits}件の書籍が見つかりました。`;
+          displayBooks(data.books);
+        }
+      } catch (error) {
+        result.classList.add("text-red-500");
+        result.textContent = "エラーが発生しました。";
+        displayReset();
+      }
     });
 
     function displayReset() {
