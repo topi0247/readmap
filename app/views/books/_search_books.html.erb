@@ -40,7 +40,7 @@
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        if (data.books.length === 0) {
+        if (data.hits === 0) {
           result.classList.remove("hidden");
           result.classList.add("text-red-500");
           result.textContent = "書籍が見つかりませんでした。";
@@ -55,6 +55,7 @@
         result.classList.add("text-red-500");
         result.textContent = "エラーが発生しました。";
         displayReset();
+        throw new Error(`書籍検索error: ${error}`);
       }
     });
 
