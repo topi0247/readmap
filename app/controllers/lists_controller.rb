@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   def index
+    @non_current_users = User.find_by(id: 1)
   end
 
   def new

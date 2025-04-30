@@ -1,1 +1,7 @@
-<h1 class="font-bold text-4xl">リスト一覧ページ</h1>
+<h1 class="font-bold text-4xl text-center mb-4">リスト一覧</h1>
+<% if @non_current_users.is_public == true %>
+  <div class="flex justify-center">
+    <h2><%= @non_current_users.name %> さんの登録している本</h2>
+    <>
+  </ul>
+<% end %>
