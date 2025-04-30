@@ -21,12 +21,11 @@ class RakutenBooksApiService
           books = data['Items'].map do |item|
             {
               title: item['Item']['title'],
-              isbsn: item['Item']['isbn'],
+              isbn: item['Item']['isbn'],
               url: item['Item']['itemUrl'],
               image_url: item['Item']['largeImageUrl']
             }
           end
-          Rails.logger.debug("Rakuten API response: #{{ books: books, hits: data['count'] }.inspect}")
           { books: books, hits: data['count'].to_i }
         else
           return { items: nil, hits: 0 }
