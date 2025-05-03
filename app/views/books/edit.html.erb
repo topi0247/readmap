@@ -15,5 +15,6 @@
       <%= f.submit "更新", class: "btn btn-primary" %>
     </div>
   <% end %>
+  <%= link_to '削除', list_book_path(@list.id, @book.isbn), data: { turbo_method: :delete }, class: "link" %>
   <%= link_to '戻る', request.referer || list_book_path(list_id: @list_book.list_id, id: @book.id), class: "link" %>
 </div>
