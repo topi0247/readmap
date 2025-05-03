@@ -2,22 +2,25 @@
   <div class="flex justify-center">
     <%= link_to 'TOPへ戻る', root_path, class: 'btn btn-primary' %>
     <%= link_to '書籍登録画面', "#", class: 'btn btn-primary' %>
+    <%= link_to 'リスト編集', edit_list_path(@list.id), class: 'btn btn-primary' %>
   </div>
   <div class="flex justify-center">
   <ul class="w-full max-w-2xl">
-    <% @books.each do |book| %>
+    <% @list_books.each do |list_book| %>
       <li class="mb-4 p-4 border rounded shadow mt-4">
-        <%= image_tag(book.cover_image_url) %>
+        <%= image_tag(list_book.book.cover_image_url) %>
         <strong class="block text-lg font-semibold mb-2">タイトル:</strong>
-        <span class="block mb-2"><%= book.title %></span>
+        <span class="block mb-2"><%= list_book.book.title %></span>
         <strong class="block text-lg font-semibold mb-2">ユーザー名:</strong>
-        <span class="block mb-2"><%= @user.name %></span>
-        <strong class="block text-lg font-semibold mb-2">読了日時:</strong>
-        <span class="block">仮読了日時</span>
+        <strong>読了日時:</strong> <%= list_book.read_completed_at.strftime('%Y年%m月%d日') %><br>
+        <strong>コメント:</strong> <%= list_book.comment %>
+        <p>
+          <%= link_to '編集', edit_list_book_path(list_id: @list.id, book_id: list_book.book_id), class: "link" %>
+        </p>
       </li>
     <% end %>
   </ul>
 </div>
-  <div class="mt-auto flex justify-center w-full">
-    <%= link_to 'Xシェア', "#", class: 'btn btn-primary' %>
-  </div>
+<div class="mt-auto flex justify-center w-full">
+  <%= link_to 'Xシェア', "#", class: 'btn btn-primary' %>
+</div>
