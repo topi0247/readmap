@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="light">
+<html data-theme="light" class="h-full">
   <head>
     <title><%= content_for(:title) || "Myapp" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,12 +13,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="flex flex-col min-h-screen">
     <%= render 'layouts/header' %>
     <%= render 'layouts/flash_messages'%>
-      <main>
-        <%= yield %>
-      </main>
+    <main class="flex-grow">
+      <%= yield %>
+    </main>
     <%= render 'layouts/footer' %>
   </body>
 </html>
