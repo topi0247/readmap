@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_current_user_list, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_current_user_list_book, only: [:edit, :update]
 
   def new
     search_params = params.permit(:title, :commit, :list_id)
@@ -22,7 +23,7 @@ class BooksController < ApplicationController
           list_book.read_completed_at = books_params[:read_completed_at]
           list_book.comment = books_params[:comment]
         end
-        book_and_list_reload
+        books_and_list_reload
       end
 
       respond(book)
@@ -30,36 +31,61 @@ class BooksController < ApplicationController
       flash.now[:success] = "リストに登録完了しました"
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error("Error creating book: #{e.message}")
-      flash.now[:error] = "本の登録に失敗しました"
+      flash.now[:warning] = "本の登録に失敗しました"
       render :new, status: :unprocessable_entity
     end
   end
 
   def show
+    @list = List.find_by(id: params[:list_id])
+    unless @list
+      redirect_to lists_path, warning: "リストが見つかりません"
+      return
+    end
+
+    @list_book = @list.list_books.find_by(list_id: @list.id, book_id: params[:id])
+    unless @list_book
+      redirect_to lists_path, warning: "リストに本が見つかりません"
+      return
+    end
+
+    @book = Book.find_by(id: params[:id])
   end
 
   def edit
+    @book = Book.find_by(id: params[:id])
   end
 
   def update
+    if @list_book.update(list_book_params)
+      flash.now[:success] = "本の情報を更新しました"
+      redirect_to list_book_path(@list, @list_book.book_id), status: :see_other
+    else
+      flash.now[:warning] = "本の情報の更新に失敗しました"
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    book = Book.find_by(isbn: params[:id])
     begin
+      book = Book.find_by(isbn: params[:id])
       if book
         @list.list_books.find_by(book_id: book.id)&.destroy!
       else
         flash.now[:error] = "本が見つかりません"
       end
 
-      book_and_list_reload
+      if request.referer&.match(%r{/lists/\d+/books/new})
+        books_and_list_reload
+        respond(book)
+        flash.now[:success] = "本をリストから削除しました"
+        return
+      end
 
-      respond(book)
-      flash.now[:success] = "本をリストから削除しました"
+      redirect_to list_path(@list.id), success: "本をリストから削除しました"
     rescue ActiveRecord::RecordNotFound => e
       Rails.logger.error("Error deleting book: #{e.message}")
-      flash.now[:error] = "本の削除に失敗しました"
+      flash.now[:warning] = "本の削除に失敗しました"
       render :new, status: :unprocessable_entity
     end
   end
@@ -73,10 +99,23 @@ class BooksController < ApplicationController
   )
   end
 
+  def list_book_params
+    params.require(:list_book).permit(
+      :read_completed_at, :comment
+    )
+  end
+
   def set_current_user_list
     @list = current_user.lists.find_by(id: params[:list_id])
     unless @list
-      redirect_to lists_path, error: "リストが見つかりません"
+      redirect_to lists_path, warning: "リストが見つかりません"
+    end
+  end
+
+  def set_current_user_list_book
+    @list_book = @list.list_books.find_by(list_id: @list.id, book_id: params[:id])
+    unless @list_book
+      redirect_to lists_path, warning: "リストに本が見つかりません"
     end
   end
 
@@ -96,7 +135,7 @@ class BooksController < ApplicationController
     end
   end
 
-  def book_and_list_reload
+  def books_and_list_reload
     @books = @list.books.reload
     @existing_isbns = @books.pluck(:isbn)
   end
