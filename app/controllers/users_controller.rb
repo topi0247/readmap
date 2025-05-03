@@ -1,26 +1,23 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
   before_action :authorize_user, only: [:edit, :update]
-  before_action :require_login
+  skip_before_action :require_login, only: [:index, :show]
   rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
 
   def index
-    @users = User.publicly_visible.order(created_at: :desc).includes(:lists) 
+    @users = User.publicly_visible.order(created_at: :desc).includes(:lists)
   end
-  
+
   def show
     unless @user.is_public
       # ログインユーザーが自分自身の場合は表示、それ以外はリダイレクト
-      unless current_user && current_user.id == @user.id
-        flash[:warning] = "このユーザーページは非公開に設定されています"
-        redirect_to users_path and return
+      unless current_user&.id == @user.id
+        redirect_to users_path, warning: "他のユーザーのページは表示できません"
       end
     end
   end
 
-  def edit
-    # authorize_userメソッドで処理
-  end
+  def edit; end
 
   def update
     # authorize_userメソッドで処理
@@ -34,6 +31,7 @@ class UsersController < ApplicationController
       end
       redirect_to user_path(params[:id]), success: "ユーザー情報を更新しました"
     else
+      flash.now[:warning] = "ユーザー情報の更新に失敗しました"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -46,16 +44,13 @@ class UsersController < ApplicationController
 
   def authorize_user
     unless current_user && current_user.id == @user.id
-      flash[:warning] = "他のユーザー情報は編集できません"
-      redirect_to users_path and return
+      redirect_to users_path, warning: "他のユーザー情報は編集できません"
     end
   end
 
   def user_not_found
-    flash[:warning] = "指定されたユーザーは存在しません"
-    redirect_to users_path
+    redirect_to users_path, warning: "指定されたユーザーは存在しません"
   end
-
 
   def user_params
     params.require(:user).permit(:name, :engineer_start_date, :profile_content, :is_public)

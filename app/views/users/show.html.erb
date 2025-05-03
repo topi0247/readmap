@@ -35,6 +35,31 @@
   </div>
 </div>
 
+<div>
+  <% if @user.lists %>
+    <ul>
+      <% @user.lists.each do |list| %>
+        <li class="mb-4 p-4 border rounded shadow mt-4 list-none">
+          <h2><%= list.name %></h2>
+          <p>登録された本の数: <%= list.books.count %></p>
+          <div class="mt-4">
+            <% first_book = list.books.first %>
+            <% if first_book %>
+              <div class="w-32">
+                <%= image_tag(first_book.cover_image_url, alt: first_book.title) %>
+                <p class="text-sm mt-2 text-center"><%= first_book.title %></p>
+              </div>
+            <% else %>
+              <p class="text-sm text-gray-500">リストに登録された本がありません。</p>
+            <% end %>
+          </div>
+          <%= link_to 'リスト詳細', list_path(list), class: 'btn btn-secondary mt-2' %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
 <div class="mt-8 mb-2 flex justify-center">
   <%= link_to 'ユーザー一覧へ戻る', users_path, class: 'btn btn-primary mr-2'  %>
   <%= link_to 'TOPへ戻る', root_path, class: 'btn btn-primary' %>
