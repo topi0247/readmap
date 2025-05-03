@@ -1,0 +1,46 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="font-bold text-4xl text-center mb-6">ユーザー一覧</h1>
+
+  <div class="flex justify-center mb-8 space-x-4">
+    <%= link_to 'TOPへ戻る', root_path, class: 'btn btn-primary' %>
+    <%#<%= link_to 'ユーザー登録', new_user_path, class: 'btn btn-primary' %>
+  </div>
+
+  <div class="flex justify-center mb-12">
+    <ul class="grid gap-6 w-full max-w-2xl sm:grid-cols-2 lg:grid-cols-3">
+      <% @users.each do |user| %>
+        <li class="card bg-base-100 shadow-md border hover:shadow-lg transition-shadow duration-300">
+          <div class="card-body p-6">
+
+            <!-- ユーザーごとの基本情報 -->
+            <div class="flex items-center gap-4 mb-2 pb-2">
+              <div class="w-full">
+                <p class="text-lg font-bold mb-1"><%= user.name %></p>
+                <% if user.engineer_start_date.present? %>
+                  <p class="text-sm text-gray-500">
+                    エンジニア歴
+                    <!-- エンジニア開始日と今日の日付差分をdistance_of_time_in_wordsで処理。日本語化 -->
+                    <%= distance_of_time_in_words(user.engineer_start_date, Date.current, locale: :ja) %>
+                  </p>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- リスト数 -->
+            <div class="mb-4">
+              <span class="badge badge-outline badge-md">
+                公開リスト
+                <span class="ml-1 font-semibold"><%= user.lists.where(is_public: true).count %></span>
+                件
+              </span>
+            </div>
+
+            <div class="card-actions justify-end mt-auto pt-2">
+              <%= link_to '詳細を見る', user_path(user), class: 'btn btn-primary btn-sm' %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

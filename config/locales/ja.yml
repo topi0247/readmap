@@ -1,0 +1,30 @@
+ja:
+  datetime:
+    distance_in_words:
+      x_days:
+        one: "1日"
+        other: "%{count}日"
+
+      about_x_months:
+        one: "約1か月"
+        other: "約%{count}か月"
+
+      x_months:
+        one: "1か月"
+        other: "%{count}か月"
+
+      about_x_years:
+        one: "約1年"
+        other: "約%{count}年"
+
+      over_x_years:
+        one: "1年以上"
+        other: "%{count}年以上"
+
+      almost_x_years:
+        one: "1年弱"
+        other: "%{count}年弱"
+
+      a_day:
+        one: "1日"
+        other: "1日"
