@@ -3,8 +3,7 @@ class ListsController < ApplicationController
   skip_before_action :require_login, only: [:index, :show]
 
   def index
-    # TODO: ログインユーザーも除く
-    @non_current_users = User.where(is_public: true).includes(:lists)
+    @lists = List.where(is_public: true).includes(:user, :books).where.not(user_id: current_user.id).order(created_at: :desc)
   end
 
   def new
