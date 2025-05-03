@@ -44,7 +44,6 @@ end
 # カテゴリ
 category_names = [
   "Ruby",
-  "Rails",
   "Typescript",
   "Python",
   "AWS",
