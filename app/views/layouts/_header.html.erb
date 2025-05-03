@@ -1,12 +1,12 @@
 <div class="navbar bg-base-300 shadow-lg mb-4">
   <div class="navbar-start">
     <div class="dropdown">
-      <label class="btn btn-ghost lg:hidden">
+      <label tabindex="0" class="btn btn-ghost lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
       </label>
-      <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
         <li><%= link_to "ホーム", root_path %></li>
         <% if logged_in? %>
           <li><%= link_to "ユーザー一覧", users_path %></li>
@@ -38,7 +38,7 @@
               <span class="text-lg font-bold flex items-center justify-center h-full"><%= current_user.name.first.upcase %></span>
             </div>
           </label>
-          <ul class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
             <li class="menu-title">
               <span><%= current_user.name %></span>
             </li>
