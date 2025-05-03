@@ -1,47 +1,26 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
+  before_action :authorize_user, only: [:edit, :update]
+  skip_before_action :require_login, only: [:index, :show]
   rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
 
   def index
-    @users = User.publicly_visible.order(created_at: :desc).includes(:lists) 
+    @users = User.publicly_visible.order(created_at: :desc).includes(:lists)
   end
-  
+
   def show
     unless @user.is_public
-      
-      #TODO: ログイン機能実装後、current_userに一致せず、かつ非公開の場合は一覧に遷移するロジックを追加
-      # if current_user && current_user.id == @user.id
-      # # 自分自身のページなのでアクセス許可
-      # else
-      # 他のユーザーの非公開ページなのでリダイレクト
-      # TODO: フラッシュメッセージを実装予定
-      # 　flash[:alert] = "このユーザーページは非公開に設定されています"
-      # 　redirect_to users_path and return
-      # end
-
-      # ログイン機能実装までの暫定対応
-      redirect_to users_path and return
+      # ログインユーザーが自分自身の場合は表示、それ以外はリダイレクト
+      unless current_user&.id == @user.id
+        redirect_to users_path, warning: "他のユーザーのページは表示できません"
+      end
     end
   end
 
-  def edit
-    # TODO：ログイン機能実装後下記の追加予定
-    # unless current_user && current_user.id == @user.id
-    #   flash[:alert] = "他のユーザー情報は編集できません"
-    #   redirect_to users_path and return
-    # end# unless current_user && current_user.id == @user.id
-    #   flash[:alert] = "他のユーザー情報は編集できません"
-    #   redirect_to users_path and return
-    # end
-  end
+  def edit; end
 
   def update
-    # TODO：ログイン機能実装後下記の追加予定
-    # unless current_user && current_user.id == @user.id
-    #   flash[:alert] = "他のユーザー情報は更新できません"
-    #   redirect_to users_path and return
-    # end
-
+    # authorize_userメソッドで処理
     if @user.update(user_params)
       # ユーザーが非公開になるとリストも全て非公開にする
       unless @user.is_public
@@ -50,8 +29,9 @@ class UsersController < ApplicationController
           list.save!
         end
       end
-      redirect_to user_path(params[:id])
+      redirect_to user_path(params[:id]), success: "ユーザー情報を更新しました"
     else
+      flash.now[:warning] = "ユーザー情報の更新に失敗しました"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -62,12 +42,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def user_not_found
-    # TODO: フラッシュメッセージを実装予定
-    # flash[:alert] = "指定されたユーザーは存在しません"
-    redirect_to users_path
+  def authorize_user
+    unless current_user && current_user.id == @user.id
+      redirect_to users_path, warning: "他のユーザー情報は編集できません"
+    end
   end
 
+  def user_not_found
+    redirect_to users_path, warning: "指定されたユーザーは存在しません"
+  end
 
   def user_params
     params.require(:user).permit(:name, :engineer_start_date, :profile_content, :is_public)

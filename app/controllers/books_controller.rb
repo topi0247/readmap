@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  skip_before_action :require_login, only: [:show]
   before_action :set_current_user_list, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_current_user_list_book, only: [:edit, :update]
 

@@ -3,8 +3,11 @@
 
   <% if logged_in? %>
     <h3><%= current_user.name %></h3>
+    <%= link_to 'マイページ', user_path(current_user), class: "btn btn-primary" %>
     <%= button_to "ログアウト", logout_path, method: :delete, class: "bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300" %>
   <% else %>
     <%= link_to "ログイン", login_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300" %>
   <% end %>
+  <%= link_to 'ユーザー一覧', users_path, class: "btn btn-primary" %>
+  <%= link_to 'リスト一覧', lists_path, class: "btn btn-primary" %>
 </div>
