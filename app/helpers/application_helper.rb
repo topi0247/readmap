@@ -1,18 +1,4 @@
 module ApplicationHelper
-  def message_type_class(message_type)
-    case message_type.to_sym
-    when :success
-      "alert-success alert-soft"
-    when :warning
-      "alert-warning alert-soft" 
-    when :error, :alert
-      "alert-error alert-soft"
-    when :notice, :info
-      "alert-info alert-soft"
-    else
-      "alert-info alert-soft"
-    end
-  end
 
   def message_type_icon(message_type)
     case message_type.to_sym
