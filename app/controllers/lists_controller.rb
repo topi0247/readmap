@@ -11,11 +11,11 @@ class ListsController < ApplicationController
   end
 
   def show
-    list = List.find_by(id: params[:id])
-    if list.nil?
+    @list = List.find_by(id: params[:id])
+    if @list.nil?
       redirect_to lists_path, warning: "リストがありません"
     else
-      @list_books = list.list_books.includes(:book)
+      @list_books = @list.list_books.includes(:book)
     end
   end
 

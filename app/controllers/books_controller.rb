@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_list
+  before_action :set_current_user_list, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     search_params = params.permit(:title, :commit, :list_id)
@@ -73,9 +73,8 @@ class BooksController < ApplicationController
   )
   end
 
-  def set_list
-    user = User.find(1)
-    @list = user.lists.find_by(id: params[:list_id])
+  def set_current_user_list
+    @list = current_user.lists.find_by(id: params[:list_id])
     unless @list
       redirect_to lists_path, error: "リストが見つかりません"
     end
