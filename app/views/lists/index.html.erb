@@ -5,7 +5,7 @@
       <li class="mb-4 p-4 border rounded shadow mt-4 list-none">
         <h2><%= list.name %></h2>
         <p>作成者: <%= link_to list.user.name, user_path(list.user), class: "link" %></p>
-        <p>エンジニア開始日: <%= list.user.engineer_start_date.strftime("%Y年%m月%d日") %></p>
+        <p>エンジニア開始日: <%= list.user.read_completed_at.strftime("%Y年%m月%d日") %></p>
         <div class="mt-4">
         <% if list.books %>
           <% list.books.each_with_index do |book, index| %>
