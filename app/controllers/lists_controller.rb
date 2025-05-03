@@ -1,4 +1,6 @@
 class ListsController < ApplicationController
+  skip_before_action :require_login, only: [:index, :show]
+
   def index
     # TODO: ログインユーザーも除く
     @non_current_users = User.where(is_public: true).includes(:lists)
