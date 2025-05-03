@@ -1,6 +1,6 @@
 <h1 class="font-bold text-4xl text-center mb-4">プロフィール</h1>
 
-<% if current_user && current_user.id == @user.id %>
+<% if current_user&.id == @user.id %>
   <div class="flex justify-center">
     <%= link_to '編集', edit_user_path(@user), class: 'btn btn-primary mr-2' %>
   </div>
@@ -36,28 +36,34 @@
 </div>
 
 <div>
-  <% if current_user.id == @user.id %>
+  <% if current_user&.id == @user.id %>
     <%= link_to 'リストを作る', new_list_path, class: "btn" %>
   <% end %>
   <% if @user.lists %>
     <ul>
       <% @user.lists.each do |list| %>
-        <li class="mb-4 p-4 border rounded shadow mt-4 list-none">
-          <h2><%= list.name %></h2>
-          <p>登録された本の数: <%= list.books.count %></p>
-          <div class="mt-4">
-            <% first_book = list.books.first %>
-            <% if first_book %>
-              <div class="w-32">
-                <%= image_tag(first_book.cover_image_url, alt: first_book.title) %>
-                <p class="text-sm mt-2 text-center"><%= first_book.title %></p>
-              </div>
-            <% else %>
-              <p class="text-sm text-gray-500">リストに登録された本がありません。</p>
+        <% is_public = current_user&.id == @user.id ? true : list.is_public %>
+        <% if is_public %>
+          <li class="mb-4 p-4 border rounded shadow mt-4 list-none">
+            <h2><%= list.name %></h2>
+            <% if is_public %>
+            <p>公開状態：<%= list.is_public ? "公開" : "非公開" %></p>
             <% end %>
-          </div>
-          <%= link_to 'リスト詳細', list_path(list), class: 'btn btn-secondary mt-2' %>
-        </li>
+            <p>登録された本の数: <%= list.books.count %></p>
+            <div class="mt-4">
+              <% first_book = list.books.first %>
+              <% if first_book %>
+                <div class="w-32">
+                  <%= image_tag(first_book.cover_image_url, alt: first_book.title) %>
+                  <p class="text-sm mt-2 text-center"><%= first_book.title %></p>
+                </div>
+              <% else %>
+                <p class="text-sm text-gray-500">リストに登録された本がありません。</p>
+              <% end %>
+            </div>
+            <%= link_to 'リスト詳細', list_path(list), class: 'btn btn-secondary mt-2' %>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   <% end %>
