@@ -17,14 +17,14 @@ class SessionsController < ApplicationController
       flash[:success] = 'ログインしました'
       redirect_to root_path
     else
-      flash[:alert] = "ログインに失敗しました。"
+      flash[:warning] = "ログインに失敗しました。"
       redirect_to root_path
     end
   end
 
   def destroy
-    log_out if logged_in?
-    redirect_to root_path, notice: 'ログアウトしました'
+    logout if logged_in?
+    redirect_to root_path, success: 'ログアウトしました'
   end
 
   private
