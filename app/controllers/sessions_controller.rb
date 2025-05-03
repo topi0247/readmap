@@ -10,11 +10,18 @@ class SessionsController < ApplicationController
     if authentication.new_record?
       user = User.create!(name: auth.info.name)
       authentication.user = user
-      authentication.save!
+      #エラー確認用
+      authentication.email = nil
     end
 
-    log_in authentication.user if authentication.user
-    redirect_to root_path, notice: 'ログインしました'
+    if authentication.save
+      session[:user_id] = authentication.user.id
+      flash[:notice] = 'ログインしました'
+      redirect_to root_path
+    else
+      flash[:alert] = "ログインに失敗しました。"
+      redirect_to root_path
+    end
   end
 
   def destroy
