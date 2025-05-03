@@ -1,28 +1,6 @@
 ja:
   datetime:
     distance_in_words:
-      half_a_minute: "30秒"
-
-      less_than_x_seconds:
-        one: "1秒未満"
-        other: "%{count}秒未満"
-
-      x_seconds:
-        one: "1秒"
-        other: "%{count}秒"
-
-      less_than_x_minutes:
-        one: "1分未満"
-        other: "%{count}分未満"
-
-      x_minutes:
-        one: "1分"
-        other: "%{count}分"
-
-      about_x_hours:
-        one: "約1時間"
-        other: "約%{count}時間"
-
       x_days:
         one: "1日"
         other: "%{count}日"
