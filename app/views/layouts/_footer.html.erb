@@ -1,8 +1,10 @@
-<div id="footer" style="text-align: center">
-  <p>フッター</p>
-  <p>
-    <a>About Us</a> |
-    <a>Contact</a> |
-    <a>Privacy Policy</a>
-  </p>
-</div>
+<footer class="footer footer-center p-6 bg-base-200 text-base-content mt-auto">
+  <div class="grid grid-flow-col gap-4">
+    <%= link_to "About Us", "#", class: "link link-hover" %>
+    <%= link_to "Contact", "#", class: "link link-hover" %>
+    <%= link_to "Privacy Policy", "#", class: "link link-hover" %>
+  </div> 
+  <div class="mt-4">
+    <p>Copyright © <%= Date.today.year %> - All rights reserved by 来読-Readmap-製作委員会</p>
+  </div>
+</footer>
