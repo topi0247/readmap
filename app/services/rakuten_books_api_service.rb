@@ -23,7 +23,7 @@ class RakutenBooksApiService
               title: item['Item']['title'],
               isbn: item['Item']['isbn'],
               url: item['Item']['itemUrl'],
-              image_url: item['Item']['largeImageUrl']
+              cover_image_url: item['Item']['largeImageUrl']
             }
           end
           { books: books, hits: data['count'].to_i }

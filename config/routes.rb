@@ -12,10 +12,4 @@ Rails.application.routes.draw do
   resources :lists do
     resources :books, except: %i[index]
   end
-
-  namespace :api do
-    namespace :v1 do
-      get "search_books", to: "books#search"
-    end
-  end
 end
