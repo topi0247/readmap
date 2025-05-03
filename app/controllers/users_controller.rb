@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     unless @user.is_public
       # ログインユーザーが自分自身の場合は表示、それ以外はリダイレクト
       unless current_user && current_user.id == @user.id
-        flash[:alert] = "このユーザーページは非公開に設定されています"
+        flash[:warning] = "このユーザーページは非公開に設定されています"
         redirect_to users_path and return
       end
     end
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
           list.save!
         end
       end
-      redirect_to user_path(params[:id]), notice: "ユーザー情報を更新しました"
+      redirect_to user_path(params[:id]), success: "ユーザー情報を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -46,13 +46,13 @@ class UsersController < ApplicationController
 
   def authorize_user
     unless current_user && current_user.id == @user.id
-      flash[:alert] = "他のユーザー情報は編集できません"
+      flash[:warning] = "他のユーザー情報は編集できません"
       redirect_to users_path and return
     end
   end
 
   def user_not_found
-    flash[:alert] = "指定されたユーザーは存在しません"
+    flash[:warning] = "指定されたユーザーは存在しません"
     redirect_to users_path
   end
 
