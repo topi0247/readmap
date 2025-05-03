@@ -1,29 +1,24 @@
 <h1 class="font-bold text-4xl text-center mb-4">リスト一覧</h1>
 <div class="flex flex-col items-center">
-  <ul class="w-full max-w-md">  
-    <% @non_current_users.each do |user| %>  
-      <% if user.is_public %>  
-        <li class="mb-4 p-4 border rounded shadow mt-4 list-none">  
-          <h2><%= user.name %> さんのリスト</h2>  
-          <p>エンジニア開始日: <%= user.engineer_start_date %></p>  
-          <div class="mt-4">  
-          <% first_list = user.lists.first %>
-          <% if first_list %>
-            <% first_book = first_list.books.first %>
-            <% if first_book %>
-                <h3 class="font-bold text-lg mb-2"><%= first_list.name %></h3>
-                <div class="w-32">
-                  <%= image_tag(first_book.cover_image_url, alt: first_book.title) %>
-                  <p class="text-sm mt-2 text-center"><%= first_book.title %></p>
-                </div>
-            <% else %>
-              <p class="text-sm text-gray-500">リストに登録された本がありません。</p>
-            <% end %>
-          <% else %>
-            <p class="text-sm text-gray-500">登録されたリストがありません。</p>
+  <ul class="w-full max-w-md">
+    <% @lists.each do |list| %>
+      <li class="mb-4 p-4 border rounded shadow mt-4 list-none">
+        <h2><%= list.name %></h2>
+        <p>作成者: <%= link_to list.user.name, user_path(list.user), class: "link" %></p>
+        <p>エンジニア開始日: <%= list.user.engineer_start_date.strftime("%Y年%m月%d日") %></p>
+        <div class="mt-4">
+        <% if list.books %>
+          <% list.books.each_with_index do |book, index| %>
+            <% break if index >= 3 %>
+            <div class="w-32">
+              <%= image_tag(book.cover_image_url, alt: book.title) %>
+            </div>
           <% end %>
-        </div>
-      </li>
-    <% end %>
+        <% else %>
+            <p class="text-sm text-gray-500">リストに登録された本がありません。</p>
+        <% end %>
+        <%= link_to '詳細', list_path(list), class: "link" %>
+      </div>
+    </li>
   <% end %>
 </div>

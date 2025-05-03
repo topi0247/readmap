@@ -17,7 +17,9 @@
         <strong>読了日時:</strong> <%= list_book.read_completed_at.strftime('%Y年%m月%d日') %><br>
         <strong>コメント:</strong> <%= list_book.comment %>
         <p>
-          <%= link_to '編集', edit_list_book_path(@list.id, list_book.book_id), class: "link" %>
+          <% if current_user.id == @list.user_id %>
+            <%= link_to '編集', edit_list_book_path(@list.id, list_book.book_id), class: "link" %>
+          <% end %>
           <%= link_to '詳細', list_book_path(@list.id, list_book.book_id), class: "link" %>
         </p>
       </li>
