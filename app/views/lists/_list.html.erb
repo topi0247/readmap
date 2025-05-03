@@ -1,0 +1,9 @@
+<div class="form-control">
+  <%= form.label :name, "リスト名", class: "label" %>
+  <%= form.text_field :name, required: true, class: "input input-bordered w-full" %>
+</div>
+
+<div class="form-control">
+  <%= form.check_box :is_public, class: "checkbox checkbox-primary" %>
+  <%= form.label :is_public, "公開する", class: "label" %>
+</div>
