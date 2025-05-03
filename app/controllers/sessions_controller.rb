@@ -11,12 +11,12 @@ class SessionsController < ApplicationController
       user = User.create!(name: auth.info.name)
       authentication.user = user
       #エラー確認用
-      authentication.email = nil
+      #authentication.email = nil
     end
 
     if authentication.save
       session[:user_id] = authentication.user.id
-      flash[:notice] = 'ログインしました'
+      flash[:success] = 'ログインしました'
       redirect_to root_path
     else
       flash[:alert] = "ログインに失敗しました。"

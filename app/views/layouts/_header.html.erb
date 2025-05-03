@@ -1,16 +1,11 @@
 <div id="header" style="height: 60px; text-align: center; padding: 10px 0;">
   <h1>ヘッダー</h1>
 
-  <div class="user-login">
-    <% if logged_in? %>
-      <h3><%= current_user.name %></h3>
-      <div class="logout-button">
-        <%= button_to "ログアウト", logout_path, method: :delete, class: "bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300" %>
-      </div>
-    <% else %>
-      <div class="login-button">
-        <%= link_to "ログイン", login_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300" %>
-      </div>
-    <% end %>
-  </div>
+  <% if logged_in? %>
+    <h3><%= current_user.name %></h3>
+    <%#= button_to "ログアウト", logout_path, method: :delete, class: "bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300" %>
+    <%= link_to "ログアウト", logout_path, method: :delete, data: { turbo: false }, class: "bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300" %>
+  <% else %>
+    <%= link_to "ログイン", login_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300" %>
+  <% end %>
 </div>
