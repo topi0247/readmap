@@ -5,7 +5,7 @@ category_names = [
   "HTML/CSS",
   "JavaScript",
   "Typescript",
-  "React",  
+  "React",
   "Next.js",
   "Vue.js",
   "Nuxt.js",
