@@ -9,10 +9,12 @@ class ListsController < ApplicationController
   end
 
   def show
-    @books = Book.order(created_at: :asc)
-    @user = User.find_by(id: 2)
-    @read_completed_dates = @user.lists.joins(:list_books).pluck('list_books.read_completed_at')
-    @comments = @user.lists.joins(:list_books).pluck('list_books.comment')
+    list = List.find_by(id: params[:id])
+    if list.nil?
+      redirect_to lists_path, warning: "リストがありません"
+    else
+      @list_books = list.list_books.includes(:book)
+    end
   end
 
   def update
