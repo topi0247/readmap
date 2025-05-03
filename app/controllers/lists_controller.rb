@@ -11,8 +11,12 @@ class ListsController < ApplicationController
   end
 
   def show
-    @books = Book.order(created_at: :asc)
-    @user = User.find_by(id: 1)
+    @list = List.find_by(id: params[:id])
+    if @list.nil?
+      redirect_to lists_path, warning: "リストがありません"
+    else
+      @list_books = @list.list_books.includes(:book)
+    end
   end
 
   def update
