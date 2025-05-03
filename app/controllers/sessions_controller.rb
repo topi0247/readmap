@@ -10,8 +10,6 @@ class SessionsController < ApplicationController
     if authentication.new_record?
       user = User.create!(name: auth.info.name)
       authentication.user = user
-      #エラー確認用
-      #authentication.email = nil
     end
 
     if authentication.save
