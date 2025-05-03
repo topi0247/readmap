@@ -1,0 +1,23 @@
+<tr id="book_<%= book[:isbn] %>">
+  <td><%= book[:title] %></td>
+  <td><%= image_tag(book[:cover_image_url], alt: book[:title], width: 200) if book[:cover_image_url].present? %></td>
+  <td>
+    <% if @existing_isbns&.include?(book[:isbn]) %>
+      <%= form_with url: list_book_path(list_id: @list.id, id: book[:isbn]), method: :delete, data: { turbo: true } do |f| %>
+        <%= f.submit "解除" %>
+      <% end %>
+    <% else %>
+      <%= form_with url: list_books_path(list_id: @list.id), data: { turbo: true } do |f| %>
+        <%= f.hidden_field :title, value: book[:title] %>
+        <%= f.hidden_field :isbn, value: book[:isbn] %>
+        <%= f.hidden_field :cover_image_url, value: book[:cover_image_url] %>
+        <%= f.hidden_field :url, value: book[:url] %>
+        <div class="flex flex-col">
+          <%= f.date_field :read_completed_at %>
+          <%= f.text_field :comment, placeholder: 'コメント' %>
+          <%= f.submit "登録" %>
+        </div>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
