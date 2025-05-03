@@ -12,8 +12,10 @@
         <span class="block mb-2"><%= book.title %></span>
         <strong class="block text-lg font-semibold mb-2">ユーザー名:</strong>
         <span class="block mb-2"><%= @user.name %></span>
-        <strong class="block text-lg font-semibold mb-2">読了日時:</strong>
-        <span class="block">仮読了日時</span>
+        <% @read_completed_dates.each_with_index do |date, index| %>
+            <strong>読了日時:</strong> <%= date %><br>
+            <strong>コメント:</strong> <%= @comments[index] %>
+        <%end %>
       </li>
     <% end %>
   </ul>
