@@ -1,8 +1,10 @@
 <h1 class="font-bold text-4xl text-center mb-4">プロフィール</h1>
 
-<div class="flex justify-center">
-  <%= link_to '編集', edit_user_path(@user), class: 'btn btn-primary mr-2' %>
-</div>
+<% if current_user && current_user.id == @user.id %>
+  <div class="flex justify-center">
+    <%= link_to '編集', edit_user_path(@user), class: 'btn btn-primary mr-2' %>
+  </div>
+<% end %>
 
 <div class="flex justify-center mt-6">
   <div class="w-full max-w-md p-6 border rounded shadow">

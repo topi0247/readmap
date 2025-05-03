@@ -3,4 +3,11 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   include SessionsHelper
   add_flash_types :success, :warning
+  
+  def require_login
+    unless logged_in?
+      flash[:alert] = "ログインしてください"
+      redirect_to root_path
+    end
+  end
 end
