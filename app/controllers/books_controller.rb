@@ -8,6 +8,7 @@ class BooksController < ApplicationController
     @result = RakutenBooksApiService.search(search_params[:title]) if search_params[:title].present?
 
     @books = @list.books
+    @categories = Category.all
     @existing_isbns = @books.pluck(:isbn)
   end
 
@@ -17,6 +18,13 @@ class BooksController < ApplicationController
         b.title = books_params[:title]
         b.cover_image_url = books_params[:cover_image_url]
         b.url = books_params[:url]
+      end
+
+      if book.categories.nil? || book.categories.count < 3
+        category_ids = books_params[:categories].map do |category_name|
+          Category.find_by_name(category_name)&.id
+        end.compact
+        book.categories = Category.where(id: category_ids)
       end
 
       unless @list.books.include?(book)
@@ -96,7 +104,8 @@ class BooksController < ApplicationController
   def books_params
     params.permit(
     :title, :isbn, :cover_image_url, :url,
-    :read_completed_at, :comment, :list_id
+    :read_completed_at, :comment, :list_id,
+    categories: []
   )
   end
 
