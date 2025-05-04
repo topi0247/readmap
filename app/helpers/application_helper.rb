@@ -14,4 +14,33 @@ module ApplicationHelper
       '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'.html_safe
     end
   end
+
+  def default_meta_tags
+    {
+      site: '来読-ReadMap-',
+      title: '',
+      reverse: true,
+      charset: 'utf-8',
+      description: 'ITエンジニア向け、来年また読む本リスト',
+      canonical: request.original_url,
+      separator: '|',
+      icon: [
+        { href: image_url('logo.png') },
+        { href: image_url('logo.png'), rel: 'apple-touch-icon', sizes: '180x180', type: 'image/png' },
+      ],
+      og: {
+        site_name: :site,
+        title: :title,
+        description: :description,
+        type: 'website',
+        url: request.original_url,
+        image: image_url('ogp.png'),
+        local: 'ja-JP',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        image: image_url('ogp.png'),
+      }
+    }
+  end
 end
