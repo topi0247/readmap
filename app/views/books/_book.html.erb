@@ -17,7 +17,7 @@
         <%= f.hidden_field :cover_image_url, value: book[:cover_image_url] %>
         <%= f.hidden_field :url, value: book[:url] %>
         <div class="flex flex-col">
-          <%= f.date_field :read_completed_at, required: true %>
+          <%= f.date_field :read_completed_at, required: true, max: Date.today %>
           <%= f.text_field :comment, placeholder: 'コメント' %>
           <% hasCategory.each do |category| %>
             <% if category.blank? || category == '未設定' %>
