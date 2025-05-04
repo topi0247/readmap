@@ -27,10 +27,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
   </head>
 
-  <body class="flex flex-col min-h-screen noto-sans-jp">
+  <body class="flex flex-col min-h-screen noto-sans-jp bg-yellow-950/20 ">
     <%= render 'layouts/header' %>
     <%= render 'layouts/flash_messages'%>
-    <main class="flex-grow w-[95%] mx-auto">
+    <main class="flex-grow mx-auto w-[95%] my-8">
       <%= yield %>
     </main>
     <%= render 'layouts/footer' %>
