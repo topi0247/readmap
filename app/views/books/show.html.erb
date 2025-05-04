@@ -3,6 +3,14 @@
   <dl>
     <dt>タイトル:</dt>
     <dd><%= @book.title %></dd>
+    <dt>カテゴリー:</dt>
+    <dd>
+      <% if @book.categories.present? %>
+        <%= @book.categories.map(&:name).join(', ') %>
+      <% else %>
+        未設定
+      <% end %>
+    </dd>
     <dt>表紙画像:</dt>
     <dd>
       <img src="<%= @book.cover_image_url %>" alt="<%= @book.title %> 表紙" class="book-cover">
