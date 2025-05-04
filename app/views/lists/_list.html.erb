@@ -1,7 +1,11 @@
 <li class="card bg-base-100 w-[95%] shadow-xl mx-auto rounded-none">
-  <figure class="bg-white py-3">
-    <%= image_tag(list.books.first.cover_image_url, alt: list.books.first.title) %>
-  </figure>
+  <% if list.books.count > 0 %>
+    <figure class="bg-white py-3">
+      <%= image_tag(list.books.first.cover_image_url, alt: list.books.first.title) %>
+    </figure>
+  <% else %>
+    <p class="bg-white py-3 text-center">書籍登録がありません</p>
+  <% end %>
   <div class="card-body bg-orange-100">
     <div>
       <h2 class="text-lg font-semibold"><%= list.name %></h2>

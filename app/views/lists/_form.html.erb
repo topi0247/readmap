@@ -10,6 +10,6 @@
   <% else %>
     <%= form.label :is_public, "公開する", class: "label text-gray-400" %>
     <%= form.check_box :is_public, class: "checkbox checkbox-primary", disabled: true %>
-    <span class="text-gray-500">非公開ユーザーのリストは公開できません</span>
+    <p class="text-gray-500 text-sm">非公開ユーザーのリストは公開できません</p>
   <% end %>
 </div>

@@ -40,7 +40,7 @@
       </div>
     <% end %>
     <% if @user.lists %>
-      <ul>
+      <ul class="grid grid-cols-1 gap-6">
         <% @user.lists.each do |list| %>
           <% if list.is_public || current_user&.id == @user.id %>
             <%= render 'lists/list', list: list %>

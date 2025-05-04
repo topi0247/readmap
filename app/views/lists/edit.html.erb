@@ -1,13 +1,11 @@
-<h1 class="text-2xl zen-maru-gothic-bold mb-4"><%= title "リスト編集" %></h1>
-
-<%= form_with(model: @list, local: true, class: "space-y-4") do |form| %>
-
-  <%= render 'form', form: form %>
-
-  <div class="form-control">
-    <%= form.submit "更新", class: "btn btn-primary w-full" %>
-    <%= link_to "削除", list_path(@list), data: { turbo_method: :delete } ,class: "btn btn-error w-full" %>
+<article class="flex flex-col items-center justify-center gap-8 w-full">
+  <h1 class="zen-maru-gothic-bold text-4xl text-center mb-4"><%= title "リスト編集" %></h1>
+  <%= form_with(model: @list, local: true, class: "space-y-4") do |form| %>
+    <%= render 'form', form: form %>
+  <div class="flex gap-5 justify-center items-center">
+    <%= link_to "削除", list_path(@list), data: { turbo_method: :delete } ,class: "btn btn-error" %>
+    <%= form.submit "更新", class: "btn btn-primary" %>
   </div>
-<% end %>
-
-<%= link_to "戻る", list_path(@list), class: "btn btn-secondary mt-4" %>
+  <% end %>
+  <%= link_to "戻る", lists_path, class: "link" %>
+</article>

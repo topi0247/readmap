@@ -28,6 +28,7 @@
       <% end %>
     </ul>
   </div>
-  <%= render 'link_button' %>
-
+  <% if @list_books.count > 0 %>
+    <%= render 'link_button' %>
+  <% end %>
 </article>
