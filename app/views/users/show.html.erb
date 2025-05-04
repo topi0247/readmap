@@ -47,11 +47,11 @@
           <% end %>
         <% end %>
       </ul>
-    <% end %>
-    <% if current_user&.id == @user.id %>
-      <div class="text-center my-4">
-        <%= link_to 'リストを作る', new_list_path, class: "btn" %>
-      </div>
+      <% if current_user&.id == @user.id %>
+        <div class="text-center my-4">
+          <%= link_to 'リストを作る', new_list_path, class: "btn" %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 

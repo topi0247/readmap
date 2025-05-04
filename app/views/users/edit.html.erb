@@ -5,7 +5,10 @@
   <div class="w-full max-w-md p-6 border rounded shadow bg-white">
     <%= form_with model: @user do |form| %>
       <div class="mb-4">
-        <%= form.label :name, "名前", class: "block text-lg font-semibold mb-1" %>
+        <div class="flex">
+          <%= form.label :name, "名前", class: "block text-lg font-semibold mb-1" %>
+          <span class="text-red-600 align-top">*</span>
+        </div>
         <%= form.text_field :name, class: "input" %>
       </div>
 

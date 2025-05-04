@@ -28,7 +28,10 @@
         </section>
         <section class="text-start w-full flex flex-col items-start gap-2">
           <div class="w-full">
-            <%= form.label :read_completed_at, "読了日", class: "block text-lg font-semibold mb-1" %>
+            <div class="flex items-center">
+              <%= form.label :read_completed_at, "読了日", class: "block text-lg font-semibold mb-1" %>
+              <span class="text-red-600 align-top">*</span>
+            </div>
             <button type="button" popovertarget="cally-popover<%= book[:isbn] %>" class="input input-border w-full" style="anchor-name:--cally<%= book[:isbn] %>" id="cally-<%= book[:isbn] %>">
               読了日
             </button>
