@@ -1,4 +1,4 @@
-<h1 class="font-bold text-4xl text-center mb-4">プロフィール</h1>
+<h1 class="zen-maru-gothic-bold text-4xl text-center mb-4"><%= @user.name %>さんのプロフィール</h1>
 
 <% if current_user&.id == @user.id %>
   <div class="flex justify-center">
