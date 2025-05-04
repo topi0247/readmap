@@ -1,75 +1,62 @@
-<h1 class="zen-maru-gothic-bold text-4xl text-center mb-4"><%= @user.name %>さんのプロフィール</h1>
-
-<% if current_user&.id == @user.id %>
-  <div class="flex justify-center">
-    <%= link_to '編集', edit_user_path(@user), class: 'btn btn-primary mr-2' %>
-  </div>
-<% end %>
-
-<div class="flex justify-center mt-6">
-  <div class="w-full max-w-md p-6 border rounded shadow">
-    <div class="flex flex-col items-center mb-6">
-      <%# <div class="avatar mb-4">
-        <div class="w-24 rounded-full bg-gray-200 flex items-center justify-center">
-          画像実装はこちらに
-        </div>
-      </div>
-      %>
-      <h2 class="text-xl font-bold"><%= @user.name %></h2>
-    </div>
-
-    <div class="mb-4">
-      <strong class="block text-lg font-semibold mb-1">エンジニア開始日</strong>
-      <p class="text-gray-700"><%= @user.engineer_start_date&.strftime('%Y年%m月%d日') || '未設定' %></p>
-    </div>
-
-    <div class="mb-4">
-      <strong class="block text-lg font-semibold mb-1">プロフィール文</strong>
-      <p class="text-gray-700"><%= @user.profile_content || '未設定' %></p>
-    </div>
-
+<article class="flex flex-col items-center justify-center gap-3">
+  <section class="flex flex-col justify-center w-full border shadow-md bg-white border-gray-500 p-4 rounded-lg">
     <div>
-      <strong class="block text-lg font-semibold mb-1">公開/非公開</strong>
-      <p class="text-gray-700"><%= @user.is_public ? '公開' : '非公開' %></p>
+      <div class="flex flex-col items-center mb-6">
+        <%# <div class="avatar mb-4">
+          <div class="w-24 rounded-full bg-gray-200 flex items-center justify-center">
+            画像実装はこちらに
+          </div>
+        </div>
+        %>
+        <h2 class="text-xl font-bold"><%= title @user.name %>さん</h2>
+      </div>
+
+      <div class="mb-4">
+        <strong class="block text-lg font-semibold mb-1">エンジニア開始日</strong>
+        <p class="text-gray-700"><%= @user.engineer_start_date&.strftime('%Y年%m月%d日') || '未設定' %></p>
+      </div>
+
+      <div class="mb-4">
+        <strong class="block text-lg font-semibold mb-1">プロフィール文</strong>
+        <p class="text-gray-700 whitespace-pre-wrap"><%= @user.profile_content || '未設定' %></p>
+      </div>
+
+      <div>
+        <strong class="block text-lg font-semibold mb-1">公開/非公開</strong>
+        <p class="text-gray-700"><%= @user.is_public ? '公開' : '非公開' %></p>
+      </div>
     </div>
-  </div>
-</div>
+    <% if current_user&.id == @user.id %>
+      <div class="flex justify-center">
+        <%= link_to '編集', edit_user_path(@user), class: 'link' %>
+      </div>
+    <% end %>
+  </section>
 
-<div>
-  <% if current_user&.id == @user.id %>
-    <%= link_to 'リストを作る', new_list_path, class: "btn" %>
-  <% end %>
-  <% if @user.lists %>
-    <ul>
-      <% @user.lists.each do |list| %>
-        <% is_public = current_user&.id == @user.id ? true : list.is_public %>
-        <% if is_public %>
-          <li class="mb-4 p-4 border rounded shadow mt-4 list-none">
-            <h2><%= list.name %></h2>
-            <% if is_public %>
-            <p>公開状態：<%= list.is_public ? "公開" : "非公開" %></p>
-            <% end %>
-            <p>登録された本の数: <%= list.books.count %></p>
-            <div class="mt-4">
-              <% first_book = list.books.first %>
-              <% if first_book %>
-                <div class="w-32">
-                  <%= image_tag(first_book.cover_image_url, alt: first_book.title) %>
-                  <p class="text-sm mt-2 text-center"><%= first_book.title %></p>
-                </div>
-              <% else %>
-                <p class="text-sm text-gray-500">リストに登録された本がありません。</p>
-              <% end %>
-            </div>
-            <%= link_to 'リスト詳細', list_path(list), class: 'btn btn-secondary mt-2' %>
-          </li>
+  <section class="flex flex-col justify-center gap-4 w-full">
+    <% if current_user&.id == @user.id %>
+      <div class="text-center my-4">
+        <%= link_to 'リストを作る', new_list_path, class: "btn" %>
+      </div>
+    <% end %>
+    <% if @user.lists %>
+      <ul>
+        <% @user.lists.each do |list| %>
+          <% if list.is_public || current_user&.id == @user.id %>
+            <%= render 'lists/list', list: list %>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
+      </ul>
+    <% end %>
+    <% if current_user&.id == @user.id %>
+      <div class="text-center my-4">
+        <%= link_to 'リストを作る', new_list_path, class: "btn" %>
+      </div>
+    <% end %>
+  </div>
 
-<div class="mt-8 mb-2 flex justify-center">
-  <%= link_to 'ユーザー一覧へ戻る', users_path, class: 'btn btn-primary mr-2'  %>
-  <%= link_to 'TOPへ戻る', root_path, class: 'btn btn-primary' %>
-</div>
+  <section class="flex justify-center">
+    <%= link_to 'ユーザー一覧へ戻る', users_path, class: 'btn btn-primary mr-2'  %>
+    <%= link_to 'TOPへ戻る', root_path, class: 'btn btn-primary' %>
+  </section>
+</article>

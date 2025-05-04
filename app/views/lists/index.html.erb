@@ -3,21 +3,7 @@
   <ul class="w-full grid grid-cols-1 justify-center items-center gap-4">
     <% @lists.each do |list| %>
       <% next unless list.books.present? %>
-      <li class="card bg-base-100 w-[95%] shadow-xl mx-auto rounded-none">
-        <figure class="bg-white py-3">
-          <%= image_tag(list.books.first.cover_image_url, alt: list.books.first.title) %>
-        </figure>
-        <div class="card-body bg-orange-100">
-          <div>
-            <h2 class="text-lg font-semibold"><%= list.name %></h2>
-            <p>作成者: <%= link_to list.user.name, user_path(list.user), class: "link link-primary" %><br />
-              エンジニア開始日: <%= list.user.engineer_start_date&.strftime("%Y年%m月%d日") %></p>
-            <div class="card-actions justify-end">
-              <%= link_to '詳細', list_path(list), class: "btn btn-primary" %>
-            </div>
-          </div>
-        </div>
-      </li>
+      <%= render list %>
     <% end %>
   </ul>
 </div>
