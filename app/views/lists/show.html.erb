@@ -1,31 +1,33 @@
-<h1 class="text-4xl text-center mb-4 zen-maru-gothic-bold"><%= title "リスト詳細" %></h1>
-  <div class="flex justify-center">
-    <%= link_to 'TOPへ戻る', root_path, class: 'btn btn-primary' %>
-    <%= link_to '書籍登録画面', new_list_book_path(@list.id), class: 'btn btn-primary' %>
+<article class="flex flex-col items-center justify-between gap-4">
+  <h1 class="text-4xl text-center mb-4 zen-maru-gothic-bold"><%= title @list.name %></h1>
+  <div class="flex justify-center items-center gap-2">
+    <h2 class="text-lg font-semibold"><%= @list.user.name %>さんのリスト</h2>
     <% if current_user&.id == @list.user_id %>
-      <%= link_to 'リスト編集', edit_list_path(@list.id), class: 'btn btn-primary' %>
+      <%= link_to '編集', edit_list_path(@list.id), class: 'link link-primary' %>
     <% end %>
   </div>
+  <%= render 'link_button' %>
   <div class="flex justify-center">
-  <ul class="w-full max-w-2xl">
-    <% @list_books.each do |list_book| %>
-      <li class="mb-4 p-4 border rounded shadow mt-4">
-        <%= image_tag(list_book.book.cover_image_url) %>
-        <strong class="block text-lg font-semibold mb-2">タイトル:</strong>
-        <span class="block mb-2"><%= list_book.book.title %></span>
-        <strong class="block text-lg font-semibold mb-2">ユーザー名:</strong>
-        <strong>読了日時:</strong> <%= list_book.read_completed_at.strftime('%Y年%m月%d日') %><br>
-        <strong>コメント:</strong> <%= list_book.comment %>
-        <p>
-          <% if current_user&.id == @list.user_id %>
-            <%= link_to '編集', edit_list_book_path(@list.id, list_book.book_id), class: "link" %>
-          <% end %>
-          <%= link_to '詳細', list_book_path(@list.id, list_book.book_id), class: "link" %>
-        </p>
-      </li>
-    <% end %>
-  </ul>
-</div>
-<div class="mt-auto flex justify-center w-full">
-  <%= link_to 'Xシェア', share_link(@list), class: 'btn btn-primary', target: "_blank" %>
-</div>
+    <ul class="w-full max-w-2xl grid grid-cols-1 justify-center items-center gap-4">
+      <% @list_books.each do |list_book| %>
+        <li class="card bg-base-100 w-[95%] shadow-xl mx-auto rounded-none">
+          <figure class="bg-white py-3">
+            <%= image_tag(list_book.book.cover_image_url, alt: list_book.book.title) %>
+          </figure>
+          <div class="card-body bg-orange-100">
+            <div>
+              <h2 class="text-lg font-semibold"><%= list_book.book.title %></h2>
+              <p>読了日時: <%= list_book.read_completed_at.strftime('%Y年%m月%d日') %></p>
+              <p class="line-clamp-2">コメント: <%= list_book.comment %></p>
+              <div class="card-actions justify-end">
+                <%= link_to '詳細', list_book_path(@list.id, list_book.book_id), class: "btn btn-primary" %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= render 'link_button' %>
+
+</article>

@@ -1,0 +1,5 @@
+<div class="flex justify-center gap-2">
+  <%= link_to '書籍登録画面', new_list_book_path(@list.id), class: 'btn btn-primary' %>
+  <%= link_to 'Xシェア', share_link(@list), class: 'btn btn-primary', target: "_blank" %>
+</div>
+<%= link_to 'リスト一覧に戻る', lists_path, class: 'link' %>
