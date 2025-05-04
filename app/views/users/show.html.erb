@@ -39,7 +39,7 @@
         <%= link_to 'リストを作る', new_list_path, class: "btn" %>
       </div>
     <% end %>
-    <% if @user.lists %>
+    <% if @user.lists.count > 0 %>
       <ul class="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <% @user.lists.each do |list| %>
           <% if list.is_public || current_user&.id == @user.id %>
