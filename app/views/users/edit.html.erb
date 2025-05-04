@@ -10,7 +10,7 @@
 
       <div class="mb-4">
         <%= form.label :engineer_start_date, "エンジニア開始日", class: "block text-lg font-semibold mb-1" %>
-        <%= form.date_field :engineer_start_date, class: "w-full p-2 border rounded" %>
+        <%= form.date_field :engineer_start_date, class: "w-full p-2 border rounded", max: Date.today %>
       </div>
 
       <div class="mb-4">
