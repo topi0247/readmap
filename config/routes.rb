@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get "/login", to: "sessions#new", as: :login
   delete "/logout", to: "sessions#destroy", as: :logout
+  get 'privacy_policy', to: 'static_pages#privacy_policy'
+  get 'terms_of_service', to: 'static_pages#terms_of_service'
+  get 'contact', to: 'static_pages#contact'
 
   resources :users, only: %i[index show edit update]
   resources :lists do

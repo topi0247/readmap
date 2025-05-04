@@ -1,63 +1,67 @@
-<div class="navbar bg-base-300 shadow-lg mb-4">
-  <div class="navbar-start">
-    <div class="dropdown">
-      <label tabindex="0" class="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-        </svg>
-      </label>
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li><%= link_to "ホーム", root_path %></li>
+<div class="bg-base-300 shadow-lg mb-4">
+  <div class="lg:w-[980px] mx-auto navbar" >
+    <div class="navbar-start">
+      <%= link_to root_path, class: "overflow-hidden w-20 h-auto" do %>
+        <%= image_tag "logo.png", alt: "Logo", class: "w-full object object-contain" %>
+      <% end %>
+    </div>
+
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li><%= link_to "ホーム", root_path, class: "btn btn-ghost" %></li>
         <% if logged_in? %>
-          <li><%= link_to "ユーザー一覧", users_path %></li>
+          <li><%= link_to "ユーザー一覧", users_path, class: "btn btn-ghost" %></li>
         <% end %>
-        <li><%= link_to "リスト一覧", lists_path %></li>
+        <li><%= link_to "リスト一覧", lists_path, class: "btn btn-ghost" %></li>
       </ul>
     </div>
-    <%= link_to root_path, class: "btn btn-ghost normal-case text-xl" do %>
-      <span class="text-primary font-bold">来読-ReadMap-</span>
-    <% end %>
-  </div>
-  
-  <div class="navbar-center hidden lg:flex">
-   <ul class="menu menu-horizontal px-1">
-      <li><%= link_to "ホーム", root_path, class: "btn btn-ghost" %></li>
+
+    <div class="navbar-end">
       <% if logged_in? %>
-        <li><%= link_to "ユーザー一覧", users_path, class: "btn btn-ghost" %></li>
+        <div class="flex items-center gap-2">
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+              <div class="w-10 h-10 rounded-full bg-primary text-primary-content flex items-center justify-center leading-none">
+                <span class="text-lg font-bold flex items-center justify-center h-full"><%= current_user.name.first.upcase %></span>
+              </div>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <li class="menu-title">
+                <span><%= current_user.name %></span>
+              </li>
+              <li><%= link_to "マイページ", user_path(current_user) %></li>
+              <li><%= button_to "ログアウト", logout_path, method: :delete, class: "text-error" %></li>
+            </ul>
+          </div>
+        <%= link_to 'マイページ', user_path(current_user), class: "hidden lg:btn lg:btn-primary lg:btn-sm" %>
+        <%= button_to "ログアウト", logout_path, method: :delete, class: "hidden lg:btn lg:btn-error lg:btn-sm" %>
+        </div>
+      <% else %>
+        <div class="flex items-center gap-2">
+          <%= link_to login_path, class: "btn btn-primary btn-sm" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+            ログイン
+          <% end %>
+        </div>
       <% end %>
-      <li><%= link_to "リスト一覧", lists_path, class: "btn btn-ghost" %></li>
-    </ul>
-  </div>
-  
-  <div class="navbar-end">
-    <% if logged_in? %>
-      <div class="flex items-center gap-2">
-        <div class="dropdown dropdown-end">
-          <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 h-10 rounded-full bg-primary text-primary-content flex items-center justify-center leading-none">
-              <span class="text-lg font-bold flex items-center justify-center h-full"><%= current_user.name.first.upcase %></span>
-            </div>
-          </label>
-          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li class="menu-title">
-              <span><%= current_user.name %></span>
-            </li>
+      <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost lg:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+        </label>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <li><%= link_to "ホーム", root_path %></li>
+          <li><%= link_to "リスト一覧", lists_path %></li>
+          <li><%= link_to "ユーザー一覧", users_path %></li>
+          <% if logged_in? %>
             <li><%= link_to "マイページ", user_path(current_user) %></li>
             <li><%= button_to "ログアウト", logout_path, method: :delete, class: "text-error" %></li>
-          </ul>
-        </div>
-        <%= link_to 'マイページ', user_path(current_user), class: "btn btn-primary btn-sm" %>
-        <%= button_to "ログアウト", logout_path, method: :delete, class: "btn btn-error btn-sm" %>
+          <% end %>
+        </ul>
       </div>
-    <% else %>
-      <div class="flex items-center gap-2">
-        <%= link_to login_path, class: "btn btn-primary btn-sm" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-          </svg>
-          ログイン
-        <% end %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>

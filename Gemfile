@@ -40,3 +40,4 @@ group :test do
 end
 
 gem 'dotenv', groups: [:development, :test]
+gem "meta-tags"
