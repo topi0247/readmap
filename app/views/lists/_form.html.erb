@@ -1,0 +1,15 @@
+<div class="form-control">
+  <%= form.label :name, "リスト名", class: "label" %>
+  <%= form.text_field :name, required: true, class: "input input-bordered w-full" %>
+</div>
+
+<div class="form-control">
+  <% if current_user.is_public %>
+    <%= form.label :is_public, "公開する", class: "label" %>
+    <%= form.check_box :is_public, class: "checkbox checkbox-primary" %>
+  <% else %>
+    <%= form.label :is_public, "公開する", class: "label text-gray-400" %>
+    <%= form.check_box :is_public, class: "checkbox checkbox-primary", disabled: true %>
+    <p class="text-gray-500 text-sm">非公開ユーザーのリストは公開できません</p>
+  <% end %>
+</div>

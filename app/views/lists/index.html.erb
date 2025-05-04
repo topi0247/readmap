@@ -1,24 +1,11 @@
-<h1 class="font-bold text-4xl text-center mb-4"><%= title "リスト一覧" %></h1>
-<div class="flex flex-col items-center">
-  <ul class="w-full max-w-md">
-    <% @lists.each do |list| %>
-      <li class="mb-4 p-4 border rounded shadow mt-4 list-none">
-        <h2><%= list.name %></h2>
-        <p>作成者: <%= link_to list.user.name, user_path(list.user), class: "link" %></p>
-        <p>エンジニア開始日: <%= list.user.engineer_start_date&.strftime("%Y年%m月%d日") %></p>
-        <div class="mt-4">
-        <% if list.books %>
-          <% list.books.each_with_index do |book, index| %>
-            <% break if index >= 3 %>
-            <div class="w-32">
-              <%= image_tag(book.cover_image_url, alt: book.title) %>
-            </div>
-          <% end %>
-        <% else %>
-            <p class="text-sm text-gray-500">リストに登録された本がありません。</p>
-        <% end %>
-        <%= link_to '詳細', list_path(list), class: "link" %>
-      </div>
-    </li>
-  <% end %>
-</div>
+<article class="flex flex-col items-center justify-center gap-8 w-full">
+  <h1 class="zen-maru-gothic-bold text-4xl text-center mb-4"><%= title "リスト一覧" %></h1>
+  <div class="flex flex-col items-center w-full">
+    <ul class="w-full grid grid-cols-1 justify-center items-start gap-4 lg:grid-cols-3">
+      <% @lists.each do |list| %>
+        <% next unless list.books.present? %>
+        <%= render list %>
+      <% end %>
+    </ul>
+  </div>
+</article>

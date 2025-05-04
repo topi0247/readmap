@@ -1,20 +1,47 @@
-<h1 class="font-bold text-4xl"><%= title "書籍編集" %></h1>
-<div>
-  <dl>
-    <dt>タイトル:</dt>
-    <dd><%= @book.title %></dd>
-    <dt>表紙画像:</dt>
-    <dd>
-      <img src="<%= @book.cover_image_url %>" alt="<%= @book.title %> 表紙" class="book-cover">
-    </dd>
-  </dl>
-  <%= form_with model: @list_book, url: list_book_path(list_id: @list.id, id: @book.id), data: { turbo: true } do |f| %>
-    <div class="flex flex-col">
-      <%= f.date_field :read_completed_at, required: true, max: Date.today %>
-      <%= f.text_field :comment, placeholder: 'コメント' %>
-      <%= f.submit "更新", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-  <%= link_to '削除', list_book_path(@list.id, @book.isbn), data: { turbo_method: :delete }, class: "link" %>
-  <%= link_to '戻る', request.referer || list_book_path(list_id: @list_book.list_id, id: @book.id), class: "link" %>
-</div>
+<script type="module" src="https://unpkg.com/cally"></script>
+<article class="flex flex-col items-center justify-between gap-8">
+  <h1 class="zen-maru-gothic-bold text-4xl text-center"><%= title "書籍編集" %></h1>
+
+  <div class="bg-white p-4 flex flex-col items-center justify-between gap-4 w-full">
+    <figure>
+      <%= image_tag(@book.cover_image_url, alt: @book.title) %>
+    </figure>
+    <h2 class="text-xl font-bold link link-primary"><a href="<%= @book.url %>" target="_blankc" ><%= @book.title %></a></h2>
+    <section>
+      <% if @book.categories.present? %>
+        <% @book.categories.map do |category| %>
+          <span class="badge  badge-ghost"><%= category.name %></span>
+        <% end %>
+      <% else %>
+        <span class="badge badge-ghost">未設定</span>
+      <% end %>
+    </section>
+    <section class="w-full">
+      <%= form_with model: @list_book, url: list_book_path(list_id: @list.id, id: @book.id), data: { turbo: true }, class: "text-start w-full flex flex-col items-start gap-4" do |f| %>
+        <div>
+          <h3 class="text-lg font-semibold">読了日</h3>
+          <button type="button" popovertarget="cally-popover1" class="input input-border" style="anchor-name:--cally1" id="cally1">
+            <%= @list_book.read_completed_at %>
+          </button>
+          <%= f.hidden_field :read_completed_at, id: "read_completed_at" %>
+          <div popover id="cally-popover1" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally1">
+            <calendar-date class="cally" onChange="document.getElementById('cally1').innerText = this.value;document.getElementById('read_completed_at').value = this.value;" max="<%= Date.today %>" locale="ja-JP">
+              <svg aria-label="Previous" class="fill-current size-4" slot="previous" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg>
+              <svg aria-label="Next" class="fill-current size-4" slot="next" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path></svg>
+              <calendar-month></calendar-month>
+            </calendar-date>
+          </div>
+        </div>
+        <div class="w-full">
+          <h3 class="text-lg font-semibold">コメント</h3>
+          <%= f.text_area :comment, placeholder: 'コメント', class: "textarea w-full h-30" %>
+        </div>
+        <%= f.submit "更新", class: "btn btn-primary m-auto" %>
+      <% end %>
+    </section>
+    <section class="flex items-center justify-center gap-3">
+      <%= link_to '削除', list_book_path(@list.id, @book.isbn), data: { turbo_method: :delete }, class: "btn btn-error" %>
+      <%= link_to '戻る', list_book_path(list_id: @list_book.list_id, id: @book.id), class: "btn" %>
+    </section>
+  </div>
+</article>

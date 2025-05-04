@@ -1,30 +1,45 @@
-<h1 class="font-bold text-4xl text-center mb-4">ユーザー編集</h1>
+<script type="module" src="https://unpkg.com/cally"></script>
+<article class="flex flex-col items-center justify-center gap-8 w-full">
+  <h1 class="zen-maru-gothic-bold text-4xl text-center mb-4">プロフィール編集</h1>
 
-<div class="flex justify-center">
-  <div class="w-full max-w-md p-6 border rounded shadow">
+  <div class="w-full max-w-md p-6 border rounded shadow bg-white">
     <%= form_with model: @user do |form| %>
       <div class="mb-4">
         <%= form.label :name, "名前", class: "block text-lg font-semibold mb-1" %>
-        <%= form.text_field :name, class: "w-full p-2 border rounded" %>
+        <%= form.text_field :name, class: "input" %>
       </div>
 
       <div class="mb-4">
         <%= form.label :engineer_start_date, "エンジニア開始日", class: "block text-lg font-semibold mb-1" %>
-        <%= form.date_field :engineer_start_date, class: "w-full p-2 border rounded", max: Date.today %>
+        <button type="button" popovertarget="cally-popover1" class="input input-border" style="anchor-name:--cally1" id="cally1">
+          <%= @user.engineer_start_date %>
+        </button>
+        <%= form.hidden_field :engineer_start_date, id: "engineer_start_date" %>
+        <div popover id="cally-popover1" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally1">
+          <calendar-date class="cally" onChange="document.getElementById('cally1').innerText = this.value;document.getElementById('engineer_start_date').value = this.value;" max="<%= Date.today %>" locale="ja-JP">
+            <svg aria-label="Previous" class="fill-current size-4" slot="previous" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg>
+            <svg aria-label="Next" class="fill-current size-4" slot="next" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path></svg>
+            <calendar-month></calendar-month>
+          </calendar-date>
+        </div>
       </div>
 
       <div class="mb-4">
         <%= form.label :profile_content, "プロフィール文", class: "block text-lg font-semibold mb-1" %>
-        <%= form.text_area :profile_content, class: "w-full p-2 border rounded h-32" %>
+        <%= form.text_area :profile_content, class: "textarea w-full h-30" %>
       </div>
 
       <div class="mb-4">
-        <strong class="block text-lg font-semibold mb-1">公開/非公開</strong>
-        <div class="flex gap-4">
-          <%= form.radio_button :is_public, "true", class: "mr-1" %>
-          <%= form.label :is_public_true, "公開", class: "mr-4" %>
-          <%= form.radio_button :is_public, "false", class: "mr-1" %>
-          <%= form.label :is_public_false, "非公開" %>
+        <div class="flex gap-4 justify-start items-center">
+          <div class="flex gap-1 justify-start items-center">
+            <%= form.radio_button :is_public, "true", class: "radio" %>
+            <%= form.label :is_public_true, "公開" %>
+          </div>
+          /
+          <div class="flex gap-1 justify-start items-center">
+            <%= form.radio_button :is_public, "false", class: "radio" %>
+            <%= form.label :is_public_false, "非公開" %>
+          </div>
         </div>
       </div>
 
@@ -33,8 +48,8 @@
       </div>
     <% end %>
   </div>
-</div>
 
-<div class="mt-8 flex justify-center">
-  <%= link_to 'プロフィールに戻る', user_path(@user), class: 'btn btn-primary' %>
-</div>
+  <div class="mt-8 flex justify-center">
+    <%= link_to 'プロフィールに戻る', user_path(@user), class: 'btn btn-primary' %>
+  </div>
+</article>

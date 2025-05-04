@@ -1,15 +1,22 @@
-<div class="form-control">
-  <%= form.label :name, "リスト名", class: "label" %>
-  <%= form.text_field :name, required: true, class: "input input-bordered w-full" %>
-</div>
-
-<div class="form-control">
-  <% if current_user.is_public %>
-    <%= form.label :is_public, "公開する", class: "label" %>
-    <%= form.check_box :is_public, class: "checkbox checkbox-primary" %>
+<li class="card bg-base-100 w-[95%] shadow-xl mx-auto rounded-none lg:w-full">
+  <% if list.books.count > 0 %>
+    <figure class="bg-white py-3">
+      <%= image_tag(list.books.first.cover_image_url, alt: list.books.first.title) %>
+    </figure>
   <% else %>
-    <%= form.label :is_public, "公開する", class: "label text-gray-400" %>
-    <%= form.check_box :is_public, class: "checkbox checkbox-primary", disabled: true %>
-    <span class="text-gray-500">非公開ユーザーのリストは公開できません</span>
+    <p class="bg-white py-3 text-center w-[200px] h-[224px] flex justify-center items-center m-auto">書籍登録がありません</p>
   <% end %>
-</div>
+  <div class="card-body bg-orange-100">
+    <div>
+      <h2 class="text-lg font-semibold"><%= list.name %></h2>
+      <p>
+        作成者: <%= link_to list.user.name, user_path(list.user), class: "link link-primary" %><br />
+        エンジニア開始日: <%= list.user.engineer_start_date&.strftime("%Y年%m月%d日") %><br />
+        書籍登録数： <%= list.books.count %>冊
+      </p>
+      <div class="card-actions justify-end">
+        <%= link_to '詳細', list_path(list), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</li>

@@ -22,12 +22,15 @@
         gtag('config', 'G-8VH2MH3EW9');
       </script>
     <% end %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
   </head>
 
-  <body class="flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen noto-sans-jp bg-yellow-950/20 ">
     <%= render 'layouts/header' %>
     <%= render 'layouts/flash_messages'%>
-    <main class="flex-grow">
+    <main class="flex-grow mx-auto w-[95%] my-8 max-w-7xl">
       <%= yield %>
     </main>
     <%= render 'layouts/footer' %>
