@@ -1,36 +1,57 @@
-<tr id="book_<%= book[:isbn] %>">
-  <td><%= book[:title] %></td>
-  <td>
-    <% hasCategory = hasCategory?(book[:isbn]) %>
-    <%= hasCategory.join(',')  %>
-  </td>
-  <td><%= image_tag(book[:cover_image_url], alt: book[:title], width: 200) if book[:cover_image_url].present? %></td>
-  <td>
+<section id="book_<%= book[:isbn] %>" class="bg-white p-4 flex flex-col items-center justify-center gap-4 w-full">
+  <div class="bg-white p-4 flex flex-col items-center justify-between gap-4 w-full">
+    <figure>
+      <%= image_tag(book[:cover_image_url], alt: book[:title]) %>
+    </figure>
+    <h2 class="text-xl font-bold link link-primary"><a href="<%= book[:url] %>" target="_blankc" ><%= book[:title] %></a></h2>
     <% if @existing_isbns&.include?(book[:isbn]) %>
-      <%= form_with url: list_book_path(list_id: @list.id, id: book[:isbn]), method: :delete, data: { turbo: true } do |f| %>
-        <%= f.submit "解除" %>
+      <%= form_with url: list_book_path(list_id: @list.id, id: book[:isbn]), method: :delete, data: { turbo: true } do |form| %>
+        <%= form.submit "リストから削除", class: "btn btn-error" %>
       <% end %>
     <% else %>
-      <%= form_with url: list_books_path(list_id: @list.id), data: { turbo: true } do |f| %>
-        <%= f.hidden_field :title, value: book[:title] %>
-        <%= f.hidden_field :isbn, value: book[:isbn] %>
-        <%= f.hidden_field :cover_image_url, value: book[:cover_image_url] %>
-        <%= f.hidden_field :url, value: book[:url] %>
-        <div class="flex flex-col">
-          <%= f.date_field :read_completed_at, required: true, max: Date.today %>
-          <%= f.text_field :comment, placeholder: 'コメント' %>
-          <% hasCategory.each do |category| %>
-            <% if category.blank? || category == '未設定' %>
-              <%= select_tag 'categories[]',
-                              options_for_select(['未設定'] + Category.all.map(&:name), selected: '未設定'),
-                              class: "select" %>
-            <% else %>
-              <span><%= category %></span>
+      <%= form_with url: list_books_path(list_id: @list.id), data: { turbo: true }, class: "w-full flex flex-col gap-4" do |form| %>
+        <section class="w-full">
+          <h3 class="text-lg font-semibold">カテゴリ</h3>
+          <ul class="flex gap-2 w-full justify-center items-center">
+            <% hasCategory = hasCategory?(book[:isbn]) %>
+            <% hasCategory.each do |category| %>
+              <% if category.blank? || category == '未設定' %>
+                <li class="w-full"><%= select_tag 'categories[]',
+                                options_for_select(['未設定'] + Category.all.map(&:name), selected: '未設定'),
+                                class: "select w-full" %>
+                </li>
+              <% else %>
+                <li class="badge"><%= category %></li>
+              <% end %>
             <% end %>
-          <% end %>
-          <%= f.submit "登録" %>
-        </div>
+          </ul>
+        </section>
+        <section class="text-start w-full flex flex-col items-start gap-2">
+          <div class="w-full">
+            <%= form.label :read_completed_at, "読了日", class: "block text-lg font-semibold mb-1" %>
+            <button type="button" popovertarget="cally-popover<%= book[:isbn] %>" class="input input-border w-full" style="anchor-name:--cally<%= book[:isbn] %>" id="cally-<%= book[:isbn] %>">
+              読了日
+            </button>
+            <%= form.hidden_field :read_completed_at, id: "read_completed_at-#{book[:isbn]}" %>
+            <div popover id="cally-popover<%= book[:isbn] %>" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally<%= book[:isbn] %>">
+              <calendar-date class="cally" onChange="document.getElementById('cally-<%= book[:isbn] %>').innerText = this.value;document.getElementById('read_completed_at-<%= book[:isbn] %>').value = this.value;" max="<%= Date.today %>" locale="ja-JP">
+                <svg aria-label="Previous" class="fill-current size-4" slot="previous" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg>
+                <svg aria-label="Next" class="fill-current size-4" slot="next" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path></svg>
+                <calendar-month></calendar-month>
+              </calendar-date>
+            </div>
+          </div>
+          <div class="w-full">
+            <%= form.label :comment, "コメント", class: "block text-lg font-semibold mb-1 w-full" %>
+            <%= form.text_area :comment, placeholder: 'コメント', class: "textarea w-full h-30" %>
+          </div>
+        </section>
+        <%= form.hidden_field :cover_image_url, value: book[:cover_image_url] %>
+        <%= form.hidden_field :title, value: book[:title] %>
+        <%= form.hidden_field :url, value: book[:url] %>
+        <%= form.hidden_field :isbn, value: book[:isbn] %>
+        <%= form.submit "リストに登録", class: "btn btn-primary" %>
       <% end %>
     <% end %>
-  </td>
-</tr>
+  </div>
+</section>

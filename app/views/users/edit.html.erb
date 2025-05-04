@@ -12,16 +12,16 @@
       <div class="mb-4">
         <%= form.label :engineer_start_date, "エンジニア開始日", class: "block text-lg font-semibold mb-1" %>
         <button type="button" popovertarget="cally-popover1" class="input input-border" style="anchor-name:--cally1" id="cally1">
-            <%= @user.engineer_start_date %>
-          </button>
-          <%= form.hidden_field :engineer_start_date, id: "engineer_start_date" %>
-          <div popover id="cally-popover1" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally1">
-            <calendar-date class="cally" onChange="document.getElementById('cally1').innerText = this.value;document.getElementById('engineer_start_date').value = this.value;" max="<%= Date.today %>" locale="ja-JP">
-              <svg aria-label="Previous" class="fill-current size-4" slot="previous" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg>
-              <svg aria-label="Next" class="fill-current size-4" slot="next" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path></svg>
-              <calendar-month></calendar-month>
-            </calendar-date>
-          </div>
+          <%= @user.engineer_start_date %>
+        </button>
+        <%= form.hidden_field :engineer_start_date, id: "engineer_start_date" %>
+        <div popover id="cally-popover1" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally1">
+          <calendar-date class="cally" onChange="document.getElementById('cally1').innerText = this.value;document.getElementById('engineer_start_date').value = this.value;" max="<%= Date.today %>" locale="ja-JP">
+            <svg aria-label="Previous" class="fill-current size-4" slot="previous" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg>
+            <svg aria-label="Next" class="fill-current size-4" slot="next" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path></svg>
+            <calendar-month></calendar-month>
+          </calendar-date>
+        </div>
       </div>
 
       <div class="mb-4">
