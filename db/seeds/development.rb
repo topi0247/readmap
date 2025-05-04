@@ -44,13 +44,34 @@ end
 # カテゴリ
 category_names = [
   "Ruby",
-  "Typescript",
+  "Rails",
+  "HTML/CSS",
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Vue.js",
+  "Nuxt.js",
   "Python",
-  "AWS",
+  "PHP",
+  "Golang",
+  "Laravel",
+  "Java",
+  "モバイルアプリ",
+  "SQL",
   "データベース",
-  "インフラ",
+  "クラウド・インフラ",
   "WEB技術",
-  "キャリア"
+  "資格・試験",
+  "セキュリティ",
+  "テスト",
+  "キャリア",
+  "デザイン",
+  "マーケティング",
+  "ビジネス",
+  "マネジメント",
+  "エディタ",
+  "その他"
 ]
 
 created_categories = category_names.map do |name|

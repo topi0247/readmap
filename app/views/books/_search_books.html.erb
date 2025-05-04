@@ -4,14 +4,21 @@
       <%= form.text_field :title, placeholder: "書籍タイトル", class: "input" %>
       <%= form.submit "検索", class: "btn btn-primary" %>
     </div>
+    <p class="text-sm">※現在あいまい検索は対応していません</p>
   <% end %>
 </section>
 
 <% if @result.present? %>
   <h2 class="text-xl font-semibold text-center">検索結果</h2>
   <div class="grid grid-cols-1 gap-6 justify-center items-start w-full lg:grid-cols-3">
-    <% @result[:books].each do |book| %>
-      <%= render 'book', book: book %>
+    <% if @result[:books].present? %>
+      <% @result[:books].each do |book| %>
+        <%= render 'book', book: book %>
+      <% end %>
+    <% else %>
+      <div class="text-center">
+        <p>該当する書籍はありませんでした。</p>
+      </div>
     <% end %>
   </div>
 <% end %>

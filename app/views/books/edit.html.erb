@@ -19,7 +19,7 @@
     <section class="w-full">
       <%= form_with model: @list_book, url: list_book_path(list_id: @list.id, id: @book.id), data: { turbo: true }, class: "text-start w-full flex flex-col items-start gap-4" do |f| %>
         <div>
-          <h3 class="text-lg font-semibold">読了日</h3>
+          <h3 class="text-lg font-semibold">読了日<span class="text-red-600 align-top">*</span></h3>
           <button type="button" popovertarget="cally-popover1" class="input input-border" style="anchor-name:--cally1" id="cally1">
             <%= @list_book.read_completed_at %>
           </button>

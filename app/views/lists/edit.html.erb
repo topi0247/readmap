@@ -3,7 +3,7 @@
   <%= form_with(model: @list, local: true, class: "space-y-4") do |form| %>
     <%= render 'form', form: form %>
   <div class="flex gap-5 justify-center items-center">
-    <%= link_to "削除", list_path(@list), data: { turbo_method: :delete } ,class: "btn btn-error" %>
+    <%= link_to "削除", list_path(@list), data: { turbo_method: :delete }, class: "btn btn-error" %>
     <%= form.submit "更新", class: "btn btn-primary" %>
   </div>
   <% end %>
