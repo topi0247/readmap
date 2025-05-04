@@ -1,6 +1,6 @@
-<article class="flex flex-col items-center justify-center gap-8">
+<article class="flex flex-col items-center justify-center gap-8 lg:max-w-2xl lg:mx-auto">
   <h1 class="zen-maru-gothic-bold text-4xl text-center"><%= title "書籍詳細" %></h1>
-  <div class="bg-white p-4 flex flex-col items-center justify-between gap-4 w-full">
+  <div class="bg-white p-4 flex flex-col items-center justify-between gap-4 w-full lg:py-6 lg:px-8">
     <figure>
       <%= image_tag(@book.cover_image_url, alt: @book.title) %>
     </figure>

@@ -9,7 +9,7 @@
 
 <% if @result.present? %>
   <h2 class="text-xl font-semibold text-center">検索結果</h2>
-  <div class="grid grid-cols-1 gap-6 justify-center items-center w-full">
+  <div class="grid grid-cols-1 gap-6 justify-center items-start w-full lg:grid-cols-3">
     <% @result[:books].each do |book| %>
       <%= render 'book', book: book %>
     <% end %>

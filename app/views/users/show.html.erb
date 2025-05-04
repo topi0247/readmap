@@ -1,5 +1,5 @@
-<article class="flex flex-col items-center justify-center gap-3">
-  <section class="flex flex-col justify-center w-full border shadow-md bg-white border-gray-500 p-4 rounded-lg">
+<article class="flex flex-col items-center justify-center gap-3 lg:max-w-4xl lg:mx-auto">
+  <section class="flex flex-col justify-center w-full border shadow-md bg-white border-gray-500 p-4 rounded-lg lg:py-6 lg:px-8">
     <div>
       <div class="flex flex-col items-center mb-6">
         <%# <div class="avatar mb-4">
@@ -40,7 +40,7 @@
       </div>
     <% end %>
     <% if @user.lists %>
-      <ul class="grid grid-cols-1 gap-6">
+      <ul class="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <% @user.lists.each do |list| %>
           <% if list.is_public || current_user&.id == @user.id %>
             <%= render 'lists/list', list: list %>

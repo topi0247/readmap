@@ -1,4 +1,4 @@
-<article class="flex flex-col items-center justify-between gap-4">
+<article class="flex flex-col items-center justify-between gap-4 w-full">
   <h1 class="text-4xl text-center mb-4 zen-maru-gothic-bold"><%= title @list.name %></h1>
   <div class="flex justify-center items-center gap-2">
     <h2 class="text-lg font-semibold"><%= @list.user.name %>さんのリスト</h2>
@@ -7,8 +7,8 @@
     <% end %>
   </div>
   <%= render 'link_button' %>
-  <div class="flex justify-center">
-    <ul class="w-full max-w-2xl grid grid-cols-1 justify-center items-center gap-4">
+  <div class="flex justify-center w-full">
+    <ul class="w-full grid grid-cols-1 justify-center items-center gap-4 lg:grid-cols-3">
       <% @list_books.each do |list_book| %>
         <li class="card bg-base-100 w-[95%] shadow-xl mx-auto rounded-none">
           <figure class="bg-white py-3">
