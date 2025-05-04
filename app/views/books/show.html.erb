@@ -1,27 +1,34 @@
-<h1 class="zen-maru-gothic-bold text-4xl"><%= title "書籍詳細" %></h1>
-<div>
-  <dl>
-    <dt>タイトル:</dt>
-    <dd><%= @book.title %></dd>
-    <dt>カテゴリー:</dt>
-    <dd>
+<article class="flex flex-col items-center justify-between gap-8">
+  <h1 class="zen-maru-gothic-bold text-4xl text-center"><%= title "書籍詳細" %></h1>
+  <div class="bg-white p-4 flex flex-col items-center justify-between gap-4 w-full">
+    <figure>
+      <%= image_tag(@book.cover_image_url, alt: @book.title) %>
+    </figure>
+    <h2 class="text-xl font-bold link link-primary"><a href="<%= @book.url %>" target="_blankc" ><%= @book.title %></a></h2>
+    <section>
       <% if @book.categories.present? %>
-        <%= @book.categories.map(&:name).join(', ') %>
+        <% @book.categories.map do |category| %>
+          <span class="badge  badge-ghost"><%= category.name %></span>
+        <% end %>
       <% else %>
-        未設定
+        <span class="badge badge-ghost">未設定</span>
       <% end %>
-    </dd>
-    <dt>表紙画像:</dt>
-    <dd>
-      <img src="<%= @book.cover_image_url %>" alt="<%= @book.title %> 表紙" class="book-cover">
-    </dd>
-    <dt>読了日:</dt>
-    <dd><%= @list_book.read_completed_at.strftime('%Y年%m月%d日') if @list_book.read_completed_at %></dd>
-    <dt>コメント:</dt>
-    <dd><%= @list_book.comment %></dd>
-  </dl>
-  <% if current_user&.id == @list_book.list.user_id %>
-    <%= link_to '編集', edit_list_book_path(@list_book.list_id, @book.id), class: "link" %>
-  <% end %>
-  <%= link_to '戻る', request.referer || list_path(@list_book.list_id), class: "link" %>
-</div>
+    </section>
+    <section class="text-start w-full flex flex-col items-start gap-2">
+      <div>
+        <h3 class="text-lg font-semibold">読了日</h3>
+        <p><%= @list_book.read_completed_at.strftime('%Y年%m月%d日') if @list_book.read_completed_at %></p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold">コメント</h3>
+        <p><%= @list_book.comment %></p>
+      </div>
+    </section>
+    <section class="flex justify-center gap-3">
+      <% if current_user&.id == @list_book.list.user_id %>
+        <%= link_to '編集', edit_list_book_path(@list_book.list_id, @book.id), class: "link" %>
+      <% end %>
+      <%= link_to 'リストに戻る', list_path(@list_book.list_id), class: "link" %>
+    </section>
+  </div>
+</article>
