@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     unless @user.is_public
       # ログインユーザーが自分自身の場合は表示、それ以外はリダイレクト
       unless current_user&.id == @user.id
-        redirect_to users_path, warning: "他のユーザーのページは表示できません"
+        redirect_to users_path, warning: "表示権限がありません"
       end
     end
   end
