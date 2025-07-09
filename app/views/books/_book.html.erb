@@ -38,8 +38,15 @@
             <%= form.hidden_field :read_completed_at, id: "read_completed_at-#{book[:isbn]}" %>
             <div popover id="cally-popover<%= book[:isbn] %>" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally<%= book[:isbn] %>">
               <calendar-date class="cally" onChange="document.getElementById('cally-<%= book[:isbn] %>').innerText = this.value;document.getElementById('read_completed_at-<%= book[:isbn] %>').value = this.value;document.getElementById('submit-<%= book[:isbn] %>').disabled = false;" max="<%= Date.today %>" locale="ja-JP">
-                <svg aria-label="Previous" class="fill-current size-4" slot="previous" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg>
-                <svg aria-label="Next" class="fill-current size-4" slot="next" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path></svg>
+                <span slot="previous" class="flex items-center gap-1">
+                  <button type="button" class="btn btn-xs" onclick="changeYear('<%= book[:isbn] %>', -1, event)"><<</button>
+                  <svg aria-label="Previous" class="fill-current size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg>
+                </span>
+                <span slot="next" class="flex items-center gap-1">
+                  <svg aria-label="Next" class="fill-current size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path></svg>
+                  <button type="button" class="btn btn-xs" onclick="changeYear('<%= book[:isbn] %>', 1, event)">>></button>
+                </span>
+                <span id="year-display-<%= book[:isbn] %>" class="font-bold text-lg"><%= Date.current.year %>年</span>
                 <calendar-month></calendar-month>
               </calendar-date>
             </div>
