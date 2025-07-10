@@ -32,11 +32,11 @@
               <%= form.label :read_completed_at, "読了日", class: "block text-lg font-semibold mb-1" %>
               <span class="text-red-600 align-top">*</span>
             </div>
-            <button type="button" popovertarget="cally-popover<%= book[:isbn] %>" class="input input-border w-full" style="anchor-name:--cally<%= book[:isbn] %>" id="cally-<%= book[:isbn] %>">
+            <button type="button" popovertarget="year-calendar-popover<%= book[:isbn] %>" class="input input-border w-full" style="anchor-name:--cally<%= book[:isbn] %>" id="cally-<%= book[:isbn] %>">
               読了日
             </button>
             <%= form.hidden_field :read_completed_at, id: "read_completed_at-#{book[:isbn]}" %>
-            <div popover id="cally-popover<%= book[:isbn] %>" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally<%= book[:isbn] %>">
+            <div popover id="year-calendar-popover<%= book[:isbn] %>" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally<%= book[:isbn] %>">
               <calendar-date class="cally" onChange="document.getElementById('cally-<%= book[:isbn] %>').innerText = this.value;document.getElementById('read_completed_at-<%= book[:isbn] %>').value = this.value;document.getElementById('submit-<%= book[:isbn] %>').disabled = false;" max="<%= Date.today %>" locale="ja-JP">
                 <span slot="previous" class="flex items-center gap-1">
                   <button type="button" class="btn btn-xs" onclick="changeYear('<%= book[:isbn] %>', -1, event)"><<</button>

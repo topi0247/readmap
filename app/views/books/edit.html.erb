@@ -20,11 +20,11 @@
       <%= form_with model: @list_book, url: list_book_path(list_id: @list.id, id: @book.id), data: { turbo: true }, class: "text-start w-full flex flex-col items-start gap-4" do |f| %>
         <div>
           <h3 class="text-lg font-semibold">読了日</h3>
-          <button type="button" popovertarget="cally-popover<%= @book.isbn %>" class="input input-border w-full" style="anchor-name:--cally<%= @book.isbn %>" id="cally-<%= @book.isbn %>">
+          <button type="button" popovertarget="year-calendar-popover<%= @book.isbn %>" class="input input-border w-full" style="anchor-name:--cally<%= @book.isbn %>" id="cally-<%= @book.isbn %>">
             読了日
           </button>
           <%= f.hidden_field :read_completed_at, id: "read_completed_at-#{@book.isbn}" %>
-          <div popover id="cally-popover<%= @book.isbn %>" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally<%= @book.isbn %>">
+          <div popover id="year-calendar-popover<%= @book.isbn %>" class="dropdown bg-base-100 rounded-box shadow-lg" style="position-anchor:--cally<%= @book.isbn %>">
             <calendar-date class="cally"
               onChange="document.getElementById('cally-<%= @book.isbn %>').innerText = this.value;
                         document.getElementById('read_completed_at-<%= @book.isbn %>').value = this.value;
